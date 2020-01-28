@@ -1,0 +1,53 @@
+---
+title: "Mortalidad en áreas menores: \n estimaciones para la Region Pampeana (2009-2011). "
+author: |
+  Nicolás Sacco [^ns]; Iván Williams [^iw]; Bernardo L. Queiroz [^bq]
+
+    [^ns]: Population Research Institute - Pennsylvania State University, nsacco@psu.edu
+    [^iw]: Max Planck Institute for Demographic Research, williams@demogr.mpg.de
+    [^bq]: Cedeplar-UFMG, lanza@cedeplar.ufmg.br
+date: "Abril, 2019"
+output: pdf_document
+---
+
+**Backgroud**  
+
+En América Latina y el Caribe la demanda de estimaciones epidemiológicas (y de mortalidad, específicamente) para conocer la heterogeneidad sub-nacional es creciente, tanto como herramienta para la aplicación de distintos planes de desarrollo como para la asignación de recursos. La experiencia en Latinoamérica esta liderada por Brasil, donde ya existe un desarrollo metodológico sostenido (Freire y Queiroz, 2015). En Argentina, se encontraron experiencias sobre estimaciones en la tendencia de la  mortalidad infantil (Vega et. al, 2012), y las comunas de la Ciudad Autónoma de Buenos Aires (Grushka, 2013).
+
+**Objetivos**
+
+- Estimar el nivel y estructura de mortalidad de los departamentos de la Región Pampeana durante el período 2009-2011.
+- Evaluar diferentes metodologías para evaluar la heterogeneidad específica argentina.
+- Probar la hipotesis de la relación negativa entre la heterogeneidad interna y el nivel de mortalidad a nivel de provincia.  
+
+**Métodos**  
+
+Usaremos el método bayesiano empírico para mejorar la eficiencia estadística de los estimadores de las tasas de mortalidad por edad, disminuyendo la varianza en los casos de pequeñas jurisdicciones (Efron y Morris, 1975; Marshall, 1990; Longford, 2005; Assuncao, 2005 ).  
+También se aplicará un modelo de mortalidad relacional llamado TOPALS (Tool for Projecting Age-Specific rates using Linear Splines) (De Beer, 2012), que utiliza splines para describir las relaciones entre la muerte específica por edad del área menor y un patrón estándar elegido. Gonzaga y Schmertmann (2016) incluyeron el ajuste de spline en una regresión de Poisson de las tasas, lo que permite intervalos de confianza para los resultados, considerando la varianza por la poca (o a veces nula) exposición.
+Finalmente, como método básico, se aplicará el método de estandarización indirecta, tal vez uno de los primeros enfoques de este problema (Arriaga, 2011). Se basa en el cambio solo en el nivel del área principal para replicar las muertes del área menor que se está estimando. Es el caso donde no se hace ninguna consideración sobre la forma de mortalidad específica del área menor.  
+
+**Limitaciones**  
+
+El nivel de cobertura de áreas menores es desconocido, por lo que se realizan algunos chekeos visuales sobre la coherencia del nivel de mortalidad del departamento respecto a indicadores socio-económicos, con el fin de detectar posible anomalías.  
+
+**Resultados Esperados**  
+
+- El método Bayesiano Empírico es más sensible a las edades sin defunciones, pero a la vez respeta más la estructura de los datos.
+- No se verifica una relación estricta entre heterogeneidad y nivel, aunque deben incoporarse otras regiones del país.  
+
+**Bibliografía**
+
+
+* Arriaga, E (2011). Analisis demografico de la mortalidad. Universidad Nacional de Cordoba.
+* Assuncao R, Schmertmann C, Potter J, Cavenaghi S. (2005). Empirical Bayes estimation of demographic schedules for small areas. Demography, Volume 42-Number 3.
+* Assuncao, R. M, Neves, M. C., Camara, G. and Freitas, C. da C. (2006). Efficient rationalization techniques for socio-economic geographical units using minimum spanning trees. International Journal of Geographical Information Science Vol. 20, No. 7, August 2006, 797-811
+* Efron, B. and C. Morris. 1972. "Empirical Bayes on Vector Observations: An Extension of Stein's Method." Biometrika 59:335-47.
+* Freire, Queiroz, F. H. M. d. A. 2015. “Mortality Estimates and Construction of Life Tables
+for Small Areas in Brazil, 2010.”
+* Grushka, Carlos, Baum, Dafne, Sanni, Laura, Vivir y morir en las comunas de la Ciudad de Buenos Aires: un estudio de diferenciales. Población de Buenos Aires [en linea] 2013, 10 (Octubre)
+* Marshall, R.J. 1991. "Mapping Disease and Mortality Rates Using Empirical Bayes Estimators." Applied Statistics 40:283-94. 
+* Longford N (2005). Missing Data and Small-Area Estimation. Modern Analytically Equipment for the Survey Statistician. Springer. Imperial College of London.
+* Longford, N.T. 1999. "Multivariate Shrinkage Estimation of Small Area Means and Proportions." Journal of the Royal Statistical Society A 162:227-45. 
+* Vega, Andrea & Torcida, Sebastian & Velázquez, Guillermo. (2006). Análisis de la Evolución de la Tasa de Mortalidad Infantil en los Departamentos de Argentina: 1994-2003. Salud Colectiva
+
+***Para ser considerado para Sesión o Poster***

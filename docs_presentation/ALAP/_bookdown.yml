@@ -1,0 +1,4 @@
+book_filename: "_reporte"
+
+delete_merged_file: TRUE
+output_dir: _reporte

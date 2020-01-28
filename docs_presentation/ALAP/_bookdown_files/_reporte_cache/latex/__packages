@@ -1,0 +1,15 @@
+base
+bookdown
+foreign
+proto
+gsubfn
+RSQLite
+sqldf
+xlsx
+stringr
+reshape2
+mclust
+LifeTables
+ggplot2
+forecast
+knitr

@@ -1,0 +1,151 @@
+%% Configurado según normas editoriales de ALAP: 
+%% www.alapop.org/alap/ComitePublicaciones/MANUAL_DE_NORMAS_EDITORIALES_ALAP.pdf
+
+
+%% FONT
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx} 
+
+%% LENGUAGE
+\usepackage{polyglossia}
+\setdefaultlanguage[]{spanish}
+\setmainlanguage[]{spanish}
+\setotherlanguage[]{english}
+
+
+%% PAGE DIMENSIONS
+\usepackage{geometry}
+  \geometry{
+  letterpaper,
+  left=3cm,
+  right=3cm,
+  top=2.54cm,
+  bottom=2.54cm
+  }
+ 
+%% SPACING
+\usepackage{setspace}
+\spacing{1.0}
+
+%% LINE AND PAGE BREAKING
+%\sloppy
+%\clubpenalty = 10000
+%\widowpenalty = 10000
+%\brokenpenalty = 10000
+%\usepackage{microtype}
+
+%% PARAGRAPH BREAKS/ INDENT
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{1.25cm}
+
+% Notas al pie de página 
+\footnotesize\fontsize{10pt}{12pt}
+
+
+%% Títulos
+\usepackage{titlesec}
+\titleformat*{\section}{\normalfont\normalsize\bfseries}
+\titleformat*{\subsection}{\normalfont\small\bfseries}
+\titleformat*{\subsubsection}{\normalfont\small\bfseries\itshape}
+\titleformat{\paragraph}{\normalfont\small\itshape}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+%% MATHS
+%\usepackage{bm,amssymb,amsmath}
+%\allowdisplaybreaks
+
+
+%% CAPTIONS
+%\usepackage{caption}
+%\DeclareCaptionStyle{italic}[justification=centering]
+% {labelfont={bf},textfont={it},labelsep=colon}
+%\captionsetup[figure]{style=italic,format=hang,singlelinecheck=true}
+%\captionsetup[table]{style=italic,format=hang,singlelinecheck=true}
+
+%% GRAPHICS
+\usepackage{graphicx}
+\usepackage{grffile}
+
+%% HYPERLINKS
+\usepackage{xcolor} % Needed for links
+\definecolor{darkblue}{rgb}{0,0,.6}
+\usepackage{url}
+
+\usepackage[]{hyperref}
+\hypersetup{
+      colorlinks=true,
+      linkcolor=red,
+      linktoc=all,
+      urlcolor=darkblue,
+      hyperfootnotes=true,
+      breaklinks=false,
+      pagebackref=true,
+      hyperindex=true,
+      citecolor=blue,
+      filecolor=orange,
+      }
+
+
+% CONFIGURACIÓN DEL PDF
+\hypersetup{
+     pdftoolbar=true,
+     pdfmenubar=true,
+     pdfnewwindow=true,
+     pdfsubject={Mortalidad subnacional en Argentina},
+     pdfkeywords={Mortalidad; Áreas menores; Argentina},
+     pdfauthor={Nicolás Sacco},
+     pdftitle={Mortality Estimates for Small Areas in Argentina (1980-2015)},
+     pdfproducer={Bookdown with LaTeX}
+}
+
+
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage{tocloft}
+
+
+
+%%  ACRÓNIMOS Y A ABREVIATURAS
+%%[automake,abbreviations,nomain,acronym,xindy,toc,style=indexgroup]
+%%\usepackage{glossaries}
+\usepackage[automake,abbreviations,nomain,acronym,xindy,toc]{glossaries-extra}
+\setabbreviationstyle[acronym]{long-short}
+\makeglossaries
+\usepackage[xindy]{imakeidx}
+\makeindex
+%\usepackage{nomencl}
+%\makenomenclature
+\input{text/glossary}
+
+
+
+%\usepackage{babel}
+\usepackage{csquotes}
+%\usepackage{keyval}
+%\usepackage{ifthen}
+
+%\usepackage{xpatch}
+%\usepackage{showkeys}
+
+
+%\usepackage[square,numbers]{natbib}
+
+%\bibliography{bib/refsubmort.bib}
+
+%\usepackage[style=authoryear-comp, backend=biber, natbib=true]{biblatex}
+
+%%\ExecuteBibliographyOptions{style=authoryear-comp, bibencoding=utf8,minnames=1,maxnames=3, maxbibnames=99,dashed=false,terseinits=true,giveninits=true,uniquename=false,uniquelist=false,doi=false, isbn=false,url=true,sortcites=false}
+
+
+
+
+
+
+%%\usepackage[backend=biber, style=alphabetic, citestyle=authoryear, natbib=true]{biblatex}
+
+
+
+
+
+

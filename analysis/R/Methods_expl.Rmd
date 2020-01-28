@@ -1,0 +1,47 @@
+---
+title: "Method_expl"
+author: "IW"
+date: "June 3, 2019"
+output: html_document
+---
+
+## **Estimation Methods**
+
+Although Argentina is usually classified as a country with good death statistics (Jaspers, 1994), from what is known there is an unequal percentage of child deaths not registered by province years ago (DEIS source). In this sense, since the source of data is a registry, thinking about the estimation of mortality rates by age, one might think that there is no variance, and the bias (both components of the mean squared error of an estimator) would be given by the pattern of cases omitted in each jurisdiction. As was mentioned before, the second component of the error will not be addressed in this work because of no information about its distribution by small areas.  Regarding the first, there are phenomena with a small number of "experiments" (few exposed in our case), which have a greater variance in their estimates, so it requires special treatment in order to reflect the risk of underlying mortality (Brillinger, 1987). For achieving that we will use and compare three diferent methods, which have in common that take advantages of the information in the grater area that indludes the small ones that wanted to estimate.
+
+The Empirical Bayesian method improves the statistical efficiency of the estimators of mortality rates by age, decreasing the variance in the cases of small jurisdictions (Efron and Morris, 1975; Marshall, 1990; Longford, 2005; Assuncao, 2005). The idea is that assuming that the different observations of each area proceeds from a common prior, each estimtion can be improved using information from the other ones. The "a priori" distribution corresponds to the joint distribution of the vector of mortality rates by age of the largest area. Then, through the observed behavior in each minor area, the bayesian adjustment of the posterior mortality distribution occurs. The characteristic of "empiric" is that the distributions of the parameters of the greater area are estimated, in this case by the method of moments, also from the data.
+
+Let's see first the univariable case. Considering a five-year age group either in an area $i$, the distribution of deaths $d$ is assumed to be a Poisson process, with expected mean $E(d_{x, 4} ^ {i}|{m_{x,4}^{i} }) = N_{x, 4}^{i} m_{x, 4}^{i}$, being $N$ the exposures and $m$ the mortality rate.
+
+First consider $\hat{m}_{x,4}^{i} = D_{x,4}^{i}/N_{x,4}^{i}$ as the maximum likelihood estimator of the rate $m_{x,4}^{i}$ in the area $i$, which are $iid$ generated from $m_{x,4}$. The conditioned expectancy of $\hat{m}_{x,4}^{i}$ is $E_{m}(E({\hat{m}}_{x,4}^{i})/m_{x,4}^{i})=E_{m}({m_{x,4}^{i}})=m_{x,4}$ (big area rate), and conditioned variance $V({\hat{m}}_{x,4}^{i}/m_{x,4}^{i}) = \frac{m_{x,4}^{i}}{N_{x,4}^{i}}$.
+
+The total variance of the estimator can be expressed as the sum of the variance of the $i's$ means and the expectancy of the $i's$ variances: $V_{m}(E(\hat{m}_{x,4}^{i}/m_{x,4}^{i}))  +  E_{m}(V({\hat{m}}_{x,4}^{i}/m_{x,4}^{i}))= V_{m}(\hat{m}_{x,4}^{i})  +  E_{m}(\frac{{\hat{m}}}{N_{x,4}^{i}})  =  V_{m}(m_{x,4}^{i})  +   \frac{m_{x,4}}{N_{x,4}^{i}}$. That is related to the hierarchical relation between the hyperparameter ($m_{x,4}$), the parameters ($m_{x,4}^{i}$) and its estimators $\hat{m}_{x,4}^{i}$.
+
+The Bayesian linear estimator $\mathring{m}_{x, 4}^{i}$ which minimizes the mean squared error of ${m}_{x,4}^{i}$ (and indicators that are linear functions of this) is (Robbins, 1983): 
+
+$\mathring{m}_{x,4}^{i}=\hat{m}_{x,4}^{i}+S_{x,4}^{i}(\bar{m}_{x,4}^{i}-\hat{m}_{x,4}^{i})$
+
+Again, it is empirical because $m_{x,4}$ is estimated by method of moments with $\bar{m}_{x,4}$, the weighted mean of small areas. The "shrinkage" factor $S_{x,4}^{i}$ is the ratio between the expectancy of the estimated variance in the small area $i$ and the unconditionated variance of the estimator, which is:
+
+$S_{x,4}^{i}=\frac{V_{m}(m_{x,4}^{i})}{V_{m}(m_{x,4}^{i})+\frac{m_{x,4}}{N_{x,4}^{i}}}$
+
+Or seen in another way, this formula represents the ratio between the variance of the smaller area with respect to the sum of the total variance (of the smaller and larger area), in tune with an analysis of the classic variance between groups (ANOVA). Following this reasoning, in a context of extreme homogeneity, a very small minor area could be characterized from the estimation of the largest area ($S_{x,4}^{i}\cong 1$). On the other hand, areas of high population weight will take values close to those observed ($S_{x,4}^{i}\cong 0$). In the middle of these extremes, the function linearly combines the estimate of the big area with respect to the smallest area included.
+
+Longford (1999) extended this idea to vectors of random variables from smaller areas ("multivariate shrinkage"), estimating $S_{x,4}^{i}$ taking advantage of the correlation between subpopulations across areas. In our case, if the mortality rate of the age group between $x$ and $x + 4$ of area $i$ is greater than area $j$, a high correlation would imply that in a contiguous ages the same would happens with more chance. If covariance were null, this apporach would be equivalent to univariate case described before. The calculations done in this work were done for ages 0, 1-4, and quinquenal ages until the open aged group 80. The development was done following the approach showed in Assuncao et. al (2005, pages 543 and 544), which estimated the parameters by the method of moments for fertility rates in Brazil.
+
+
+
+
+
+The other method that will be applied is based in a relational mortality model called TOPALS (Tool for Projecting Age-Specific rates using Linear Splines) (De Beer, 2012), which uses a linear spline to describe the ratios between the age-specific death probabilities of a given population and a standard age schedule. One advantage against the classical Brass logit aproach, is that TOPALS is less sensitive by the choose of the standard. Gonzaga and Schmertmann (2016) included the spline fit into a Poisson regression of the rates, allowing confidence intervals for the results that take in account variance for low exposure reason. 
+
+The vector of mortality rates in the small area $m^{i}(\alpha)=m^{*}* \exp^{\alpha B_{x}}$ is a function of the spline "nodes" $\alpha$, which are the ages at which will be avaluated the offset from the standard,  being $m^*$ the standard mortality rate vector, and $B_{x}$ is the B-spline matrix that multiplied by $\alpha$ gives the lineal offset between the log-rates. 
+
+The idea is suppose $D_{x}\sim Poi(m_{x}N_{x})$ in each small area, construct the likelihood function using the observed deaths and exposures $\log (L(m_{x}N_{x}|D_{x}))=\sum_{\forall x}{\lbrack -m_{x}N_{x}+D_{x}\ln (m_{x})+D_{x}\ln (N_{x})-\ln (D_{x}!)\rbrack}$, but expressing that in funtion of the parameter $\alpha$, and adding a penalization for distance from the standard and smoothing between adjacent ages for smoothness. Using 6 nodes at ages 0, 1, 10, 20, 40, 70 and 100 like the authors, the final log-likehood to maximize is: $Q(\alpha )=\sum_{\forall x}{\lbrack -m(\alpha )_{x}N_{x}+D_{x}\ln(m(\alpha )_{x})\rbrack }-\sum_{k=0}^{5}{(\alpha _{k}-\alpha _{k+1})^{2}}$.
+
+
+
+
+
+
+Finally, as the basic method, will be aplied the Indirect Standarization method, maybe one of the first approaches to this problem (Arriaga, 2011). It is based in change only the level of the major area to replicate the deaths of the minor area that is being estimated. Is the case where no consideration about specific mortality shape of the minor area is made.

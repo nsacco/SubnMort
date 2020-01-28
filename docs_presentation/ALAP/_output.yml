@@ -1,0 +1,13 @@
+bookdown::pdf_document2:
+  latex_engine: lualatex
+  includes: 
+    in_header: text/preamble.tex
+    before_body: text/doc-prefix.tex
+    after_body: text/doc-suffix.tex
+  keep_tex: yes
+  toc: FALSE
+  number_sections: FALSE
+  fig_caption: TRUE
+
+   
+   

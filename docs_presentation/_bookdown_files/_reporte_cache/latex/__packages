@@ -1,0 +1,13 @@
+base
+forecast
+ggplot2
+foreign
+proto
+gsubfn
+RSQLite
+sqldf
+stringr
+reshape2
+mclust
+LifeTables
+knitr

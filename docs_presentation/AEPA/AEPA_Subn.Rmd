@@ -1,0 +1,238 @@
+---
+title: 'Estimaciones de Mortalidad por departamentos: \newline el caso de la región Pampeana (2009-2011)'
+author: |
+  Nicolás Sacco [^ns]; Iván Williams [^iw]; Bernardo L. Queiroz [^bq]
+
+    [^ns]: Penn State
+    [^iw]: Universidad Nacional de Luján
+    [^bq]: Cedeplar-UFMG
+institute: "XV Jornadas Argentinas de Estudios de Población – II Congreso Internacional de Población del Cono Sur"
+date: "Septiembre 2019"
+fontsize: 10pt
+link-citations: true
+output:
+  beamer_presentation:
+    theme: "JuanLesPins"
+    colortheme: "lily"
+    incremental: true
+    slide_level: 2
+    fonttheme: "structurebold"
+---
+
+```{r set, echo=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(fig.width=8, fig.height=5) 
+# options(tinytex.verbose = TRUE)
+library(knitr)
+library(kableExtra)
+# rmarkdown::render('C:/Proyectos/mortalidad_Argentina/docs_presentation/AEPA/AEPA_Subn.Rmd')
+```
+
+# Introducción  
+
+## Pregunta
+
+* Insumos para políticas de salud provinciales. ¿Qué esconden los **promedios provinciales**?
+* Escasos estudios de mortalidad en áreas menores
+* "Esta en nuestros genes"
+* Fenómenos con un **pequeño** número de **experimentos** (y **desconocida cobertura**)
+
+## Objetivos
+
+* Estimar la mortalidad de departamentos de la región Pampeana durante el período 2009-2011.
+* Obtener conclusiones sobre la heterogeneidad al interior de las provincias.
+
+# Datos
+
+## Defunciones
+
+* Microdatos de defunción para los años de registro 2009, 2010 y 2011 al Departamento de 
+Estadísticas e Información de Salud (DEIS).  
+* *Residencia* y *ocurrencia*.  
+
+---
+
+Departamento de residencia desconocido por provincia:
+
+```{r SinDEP, echo = F, results='asis', error=F, warning=F}
+library(kableExtra)
+kable(SinDEP[order(SinDEP[,2],decreasing = T),][1:10,], digits = 2, caption = '',
+      col.names = c("Provincia", 'Desc %')) %>%
+      add_footnote(c("Fuente: en base en DEIS"))
+```
+
+---
+
+Sexo Desconocido según provincia:  
+
+```{r UnkSexAge, echo = F, results='asis', error=F, warning=F}
+kable(UnkSexAge[order(UnkSexAge$PorcSexo,decreasing = T),5:6], digits = 2, caption = '', row.names = F) %>%
+      add_footnote(c("Fuente: en base en DEIS"))
+```
+
+
+## Expuestos
+
+* Población *base* INDEC a 2010 + estructura observada en el censo 2010 (INDEC, 2015)  
+* Ajuste años-persona (Gonzaga & Schmertman, 2016). Casos seleccionados:
+
+```{r AdjExp, echo = F, fig.align='center', out.width="50%", fig.show='hold', fig.cap=""}
+include_graphics('C:/Proyectos/mortalidad_Argentina/analysis/plots/AdjExp2.pdf')
+```
+
+
+## Ejercicios de consistencia (1)
+
+* Mortalidad infantil  
+	- Estimación indirecta (Brass & Coale, 1968) y tasa observada
+
+\pause
+
+```{r PF, echo = F, fig.align='center', out.width="55%", fig.cap=""}
+include_graphics('C:/Proyectos/mortalidad_Argentina/analysis/plots/ChekPF.pdf')
+```
+
+## Ejercicios de consistencia (2)
+
+* Relación socioeconómica **esperada**
+	- Preston (10975); Grushka et. al (2013)
+	- Tasa Estandarizada de Mortalidad e indicadores censales de NBI
+		- La Matanza con comportamiento "sospechoso"
+
+\pause
+
+```{r chelNBI, echo = F, fig.align='center', out.width="60%", fig.cap=""}
+include_graphics('C:/Proyectos/mortalidad_Argentina/analysis/plots/ChekNBI.pdf')
+```
+
+# Metodología
+
+---
+
+* Antecedentes: Lima, Queiroz, & Sawyer (2014); Gonzaga & Schmertmann (2016); Alexander et. al (2016)
+* Aplicación de tres metodologías. ¿Cómo área mayor **presta** comportamiento?
+* Procedimiento:  
+	- Definición de Áreas Mayores  
+	- Selección metodológica de suavizamiento  
+	- Construcción de tablas de mortalidad  
+
+## Áreas Mayores
+
+* Explotar similitud interna entre áreas pequeñas para poder suponer que su mortalidad es la realización de un proceso estocástico mayor.
+* Regionalización a partir de NBI estandarizado por edad.
+* Disminuir varianza "intra", aumentar varianza "entre" (Assuncao, 2006)
+
+\pause
+```{r Region, echo = F, fig.align='center', out.width="60%", fig.cap=""}
+include_graphics('C:/Proyectos/mortalidad_Argentina/analysis/plots/cluster.pdf')
+```
+
+## Métodos de estimación
+
+Se aplicaron tres métodos:
+
+* Bayes Empírico (Assuncao et. al, 2005)  
+		- La distribución a priori de cada $m_{x,5}$ es la del área mayor  
+		- Función lineal entre *observado* y *a priori*, según peso de la varianza local respecto a la total. "En extrema homogeneidad, un área menor muy pequeña podría caracterizarse a partir de la estimación del área más grande""  
+* TOPALS regression (Gonzaga & Schmertmann, 2016)  
+		- Modelo Relacional. Patrón standard  
+		- Regresión spline a partir de edades "nodos"  
+* Estimación indirecta
+		- Desplazar "verticalmente" estructura de mortalidad por edad para replicar defunciones observadas del departamento  
+
+# Resultados
+
+## Ajuste
+
+Bayes Empírico incorpora *siempre* información de departamentos muy pequeños:
+
+```{r Ajuste, echo=F, fig.align='center', out.width="70%", fig.cap=""}
+include_graphics('C:/Proyectos/mortalidad_Argentina/analysis/plots/Ajuste.pdf')
+```
+
+
+## Análisis comparativo
+
+Alta correalción entre TOPALS y estimación indirecta (`r round(CorrMeth[2,3],2)`), pero menor en Bayes Empírico contra las demás `r round(CorrMeth[2,1],2)` y `r round(CorrMeth[3,1],2)`.
+
+```{r comparativeMeth, echo = F, fig.align='center', out.width="70%", fig.cap=""}
+include_graphics('C:/Proyectos/mortalidad_Argentina/analysis/plots/CompMethods.pdf')
+```
+
+---
+
+Casos de mayor diferencia entre métodos:
+
+```{r Feos, echo = F, fig.align='center', out.width="70%", fig.cap=""}
+include_graphics('C:/Proyectos/mortalidad_Argentina/analysis/plots/AjusteFeos.pdf')
+```
+
+---
+
+## Resultados principales
+
+$e_0$ según departamento: intervalos de confianza al 95% (bootstrap):
+
+\pause
+
+```{r jerarq1, echo = F, fig.align='center', fig.height=6, out.width=c("60%"), fig.show='hold', fig.cap=""}
+include_graphics('C:/Proyectos/mortalidad_Argentina/analysis/plots/Buenos_Aires.pdf')
+```
+
+---
+
+```{r jerarq2, echo = F, fig.align='center', fig.height=6, out.width=c("60%","60%"), fig.show='hold', fig.cap=""}
+include_graphics(path = c('C:/Proyectos/mortalidad_Argentina/analysis/plots/Córdoba.pdf'))
+```
+
+---
+
+```{r jerarq3, echo = F, fig.align='center', fig.height=6, out.width=c("60%","60%"), fig.show='hold', fig.cap=""}
+include_graphics(path = c('C:/Proyectos/mortalidad_Argentina/analysis/plots/Entre_Ríos.pdf'))
+```
+
+---
+
+```{r jerarq4, echo = F, fig.align='center', fig.height=6, out.width=c("60%","60%"), fig.show='hold', fig.cap=""}
+include_graphics(path = c('C:/Proyectos/mortalidad_Argentina/analysis/plots/Santa_Fe.pdf'))
+```
+
+---
+
+```{r jerarq5, echo = F, fig.align='center', fig.height=6, out.width=c("60%","60%"), fig.show='hold', fig.cap=""}
+include_graphics(path = c('C:/Proyectos/mortalidad_Argentina/analysis/plots/La_Pampa.pdf'))
+```
+
+## Buenos Aires: 3 jurisdiccciones
+
+* Moreno: infantil y en adultos mayores.  
+* San Isidro: menor mortalidad en todas las edades.  
+* Gral. Pueyrredón: 15 a 25 años.  
+
+```{r dptosBsAs, echo = F, fig.align='center', fig.height=6, out.width=c("65%"), fig.show='hold', fig.cap=""}
+include_graphics("C:/Proyectos/mortalidad_Argentina/analysis/plots/SanIsyMoreno.pdf")
+```
+
+---
+
+* !Pero! ¿Qué nos permiten decir las estimaciones?  
+
+
+## Limitaciones y consideraciones
+
+Limitaciones:  
+* Se desconoce el nivel de cobertura de las áreas menores.  
+* Se realizaron algunas comprobaciones visuales, enfocándose principalmente en los departamentos más poblados, pero a un **costo** grande.  
+
+Próximos pasos:  
++ Simular modelos de mortalidad en diferentes **escalas** y patrones de **omisión** para la selección de la metodología.  
++ Consistencias adicionales entre la distribución a posteriori y las estimaciones oficiales a nivel provincial.  
+
+## Conclusiones
+
+* En la búsqueda de información sobre heterogeneidad intraprovincial en la mortalidad
+* Hay decisiones en el numerador y denominador.
+* Se aplicaron tres métodos para estimar la estructura y el nivel de mortalidad, caracterizando sus diferencias principales.
+* Hay un **límite** en lo que podemos decir, pero podemos decir **algo**
+
+# ¡Gracias!
+

@@ -1,0 +1,246 @@
+---
+title: |
+  
+  \large{Mortality Estimates for Small Areas in Argentina (2009-2011)}[^longnote]
+  \vspace{0.5cm}
+   
+    [^longnote]: Este paper fue exclusivamente elaborado para presentar en el 8vo Congreso Internacional de ALAP realizado en Ciudad de Puebla, México en Octubre de 2018. Por favor, no reproducir o citar sin el permiso expreso de los autores.
+    
+author: |
+  \normalsize _Nicolás Sacco_[^ns]; _Iván Williams_[^iw]; _Bernardo L. Queiroz_[^bq]
+
+    [^ns]: Cedeplar-UFMG, nsacco@cedeplar.ufmg.br
+    [^iw]: Universidad Nacional de Luján, ivanwilliams1985@gmail.com
+    [^bq]: Cedeplar-UFMG, lanza@cedeplar.ufmg.br
+
+
+fontsize: 12pt
+foonotesize: 10pt    
+subparagraph: yes
+lang: es-MX
+bibliography: [../bib/refsubmort.bib]
+csl: ../bib/relap.csl
+link-citations: true
+knit: "bookdown::render_book"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, cache = TRUE)
+library(bookdown)
+library(foreign)
+library(sqldf)
+library(xlsx)
+library(stringr)
+library(reshape2)
+library("LifeTables")
+library(ggplot2)
+library(forecast)
+library(ggplot2)
+library(knitr)
+```
+<!--
+http://bonecave.schmert.net/fit_TOPALS.html
+-->
+
+# Introducción {#sec:intro}
+
+Estudios recientes en los países desarrollados apuntan a señalar que las estimaciones de mortalidad en áreas menores tienden a ser diferenciales, encontrándose contrastes en la esperanza de vida al nacer entre distintas sub-regiones y/o grupos sociales [@ChettyEtAl2016], idea que discrepa, en parte, con la observada declinación en la variabilidad de la edad a la defunción desde mediados del siglo XX en países desarrollados, que sugiere que la mayoría de las muertes se concentran en una edad cada vez más estrecha y a la vez, más estable a medida que la mortalidad desciende [@WilmothHoriuchi1999]. Estos trabajos han propiciado el debate reciente entre investigadores y políticas públicas acerca de las raíces de las causas de la desigualdad en la mortalidad y cómo dar cuenta de ella.
+
+A pesar del amplio trabajo en países desarrollados al respecto, es poco lo que se conoce sobre las diferencias a nivel sub-nacional en la mortalidad (adulta e infantil) en el Cono Sur. En particular, en Argentina, las estimaciones de mortalidad y el conocimiento de sus niveles y tendencias, están limitados, como en la mayoría de los países de la región, por la calidad y disponibilidad de los datos. Los problemas más frecuentes en este país están asociados a la cobertura incompleta de los datos del sistema de registros vitales, errores en la declaración de la edad en las poblaciones involucradas en los cálculos de las tasas (población y muertes) y la falta de información sobre causas de muerte.
+
+Los cálculos para estimar la estructura y niveles de mortalidad son fuertemente dependientes de la disponibilidad de esos datos y del detalle de la información. Para los casos en los cuales las estadísticas vitales son completas, la mortalidad puede medirse directamente desde esa fuente. Desafortunadamente, la mayoría de los países de \gls{alyc}, sobre todo para el periodo anterior a 1950, no poseen datos de registros de vitales de confianza o simplemente se carece de ellos. A medida que mejora la calidad del sistema de registro, estadísticas vitales más completas deberían poder ser obtenidas para áreas administrativas pequeñas [@SetelEtAl2007].
+
+Para la mortalidad, estudios recientes realizados enfocados en Brasil [@LimaQueirozSawyer2014; @LimaQueiroz2014; @FreireEtAl2015; @QueirozFreireGonzagaEtAl2017] han aplicado distintas metodologías para estimar la cobertura del sistema de registro de muertes en el horizonte sub-nacional, tanto por su interés *per se* como por su utilidad como insumo para el cálculo de los niveles y estructura de la mortalidad en áreas administrativas menores. Hay razones para sospechar que lo observado en Brasil puede darse también en Argentina, a pesar de que ambos países transcurrieron por muy distintos procesos de transición epidemiológica.
+
+## Objetivos {#sec:obj}
+
+Considerando que no hay antecedentes en la temática para el caso argentino, se plantea realizar estimaciones de estructura y niveles mortalidad para áreas pequeñas (sub-provinciales -departamentos-) en Argentina durante el periodo 1980-2015. Se propone para ello combinar la aplicación de métodos demográficos \gls{ddm} de estimación indirecta y estadísticos (métodos Bayesianos), que serán más adelante explicitados en la Sección \@ref(sec:met).
+
+Los datos sobre defunciones y causas de muerte son esenciales para establecer prioridades de inversión en servicios públicos, la aplicación de políticas de planificación económica y su monitoreo, a nivel nacional y, cada vez con mayor intensidad, a niveles administrativos menores [@SetelEtAl2007]. En \gls{alyc} este tipo de información, a nivel local, es escaso o bien inexistente –incluso teniendo en cuenta encuestas ad-hoc– y la demanda por esos datos es creciente, tanto como insumo para la aplicación de distintos planes de desarrollo como para la asignación de recursos.
+
+Adicionalmente, si bien se trata de un debate aún abierto en cuanto a su nivel [@Grushka2010], dado que en el futuro se espera que la \gls{evn} continúe en aumento [@Rofman2007], las transformaciones sociales producidas por los cambios en la mortalidad ofrecen a las próximas décadas del siglo XXI un horizonte completamente distinto de aquel observado a fines del siglo XIX y a lo largo del siglo XX. Estos procesos tornan necesario comparar la experiencia de diferentes unidades sub-nacionales que puedan brindar ideas adicionales sobre la magnitud de los cambios en la mortalidad a lo largo de los años y sus vínculos con el desarrollo económico.
+
+En los tiempos que corren, el monitoreo de metas y políticas de salud demanda no sólo contar con estadísticas vitales a niveles de total país sino también a menores niveles de desagregación. Es que los promedios generales no suelen incorporar la particularidad de coyunturas locales, aspecto que los diferenciales geográficos pueden llegar a mostrar. Esta situación, a la vez, afecta la posibilidad de construir perfiles epidemiológicos particulares a niveles de observación locales, posibilitando un diagnóstico incorrecto de aplicación de políticas públicas que en definitiva impacten de forma no esperada en la salud de la población.
+
+# Literature Review {#ch:litreview} 
+
+Es bien conocido y ha sido documentado en diversos estudios el proceso por el cual en la Argentina las tasas de mortalidad se redujeron sustancialmente, aunque no de forma constante, merma que se debió a un desarrollo socioeconómico precoz en relación con el resto de \gls{alyc}, al alto grado de urbanización del país y a la expansión de la educación formal [@RecchinideLattes1975]. Estos elementos se conjugaron en un contexto mundial de crecimiento histórico de la \gls{evn} [@OeppenVaupel2002; @Riley2005] y de continuas reducciones de la mortalidad a edades avanzadas en muchos países de ingresos altos y medios [@RauEtAl2008], aunque al mismo tiempo se observaron patrones emergentes de una creciente brecha en la longevidad entre regiones con diferente grado de desarrollo relativo [@CohenPrestonCrimmins2011; @MesleVallin2011].
+
+Durante los últimos 130 años, las tasas de mortalidad en Argentina se han reducido sustancialmente, aunque no de una forma simple o lineal. Sus fluctuaciones se han visto afectadas por una serie de acontecimientos históricos y sociales, que han dejado su huella en la estructura de la población. Las series disponibles de esta medida para la Argentina a nivel del total del país, comienzan alrededor del año 1870. La \gls{tbm} fue estable, alrededor del 30 por mil desde esa fecha hasta fines del siglo XX. Luego de ese momento hay una marcada y continua declinación que llega a valores menores al 10 por mil, alrededor de mediados del siglo XX. Desde ese periodo y hasta la primera década del siglo XXI, la \gls{tbm} se encuentra prácticamente detenida, descendiendo lentamente a un nivel cercano al 8 por mil. Este estancamiento en la caída de la \gls{tbm} es parte de un proceso de desaceleración y al mismo tiempo fruto del proceso del continuo ascenso de la esperanza de vida, compensado por el 'envejecimiento de la población [@Grushka2014].
+
+Durante un largo período la Argentina no contó con información completa sobre muertes ocurridas por año clasificadas por edad. Recién a partir de 1911 fueron publicadas las primeras y rudimentarias series estadísticas sobre muertes, y con la realización del tercer Censo Nacional, en 1914, se dispuso por primera vez de datos de muertes y de población [@Somoza1973; @RecchinideLattes1975]^[Información que todavía adolece de distintos tipos de errores, véase por ejemplo [@Mazzeo2005]. En su evaluación sobre las estadísticas vitales en \gls{alyc}, Jaspers y Orellana [-@JaspersOrellana1994] observaron que en gran parte de los países de la región el subregistro más alto se da entre el grupo de 0 a 14 y también en el de los 50 a 70 años aproximadamente; en las edades más avanzadas (75 años y más) observó un sobrerregistro de las defunciones (que se explica, en parte, por la exageración en la declaración de la edad de las personas fallecidas de mayor edad), tendencias se observan más claramente entre los varones que entre las mujeres].
+
+Con la información derivada de registros de muertes de nueve provincias y la Ciudad de Buenos Aires (cubriendo aproximadamente al 80% de la población total del país), Somoza y equipo [-@Somoza1968; -@Somoza1970; -@Somoza1971; -@Somoza1972; -@Somoza1973]  construyeron, a fines de la década del sesenta, las tablas de vida transversales para los períodos de 1913-1915, 1946-1948 y 1959-1961, es decir, en torno a las fechas en las cuales se realizaron los censos de 1914, 1947 y 1960. Además, utilizando métodos de estimación demográfica, consistentes en la comparación de información de dos censos sucesivos, obtuvieron aproximaciones a los niveles y a la estructura de la mortalidad para momentos previos a 1914. De esa forma se pudo conocer, aproximadamente, la esperanza de vida en los períodos intercensales de 1869-1895 y de 1895-1914. Si bien el esfuerzo de Somoza y equipo no fue el primero ni el único^[Para mayor detalle véase Müller (1973)], estas tablas forman el insumo que podemos llamar >oficial> de la historia de la mortalidad en la Argentina, que luego adoptarían los organismos nacionales e internacionales como válidos y para realizar proyecciones, retroproyecciones y estimaciones de población.
+
+Luego de las de Somoza, Müller [-@Mueller1978] elaboró las tablas transversales de mortalidad para el período 1969-1971. Llamativamente por primera vez la \gls{evn} bajaba en la Argentina. Esta tabla fue construida para el total del país y cuatro regiones, con una metodología similar a las de Somoza. Después de ese lapso ya el \gls{indec} se hizo cargo oficialmente de calcular y publicar las estadísticas oficiales de la esperanza de vida.
+
+Desde 1914, si bien las mejoras no fueron uniformes durante todo el período, se observan pocas desviaciones de una tendencia lineal. Luego de moderado a comienzos del siglo XX, se distingue un crecimiento constante, pero de forma más lenta que en el pasado. La \gls{evn} continuó aumentando en forma sostenida hasta la década de 1960. De acuerdo al dato oficial este comportamiento regular y de continuo crecimiento de la \gls{indec}, en ambos sexos, se interrumpe hacia 1970 con un aparente retroceso, de 1,8 años, respecto del decenio anterior. Aún no ha sido lo suficientemente bien abordado este fenómeno. Müller y Accinelli [-@MuellerAccinelli1980] lo atribuyeron a un supuesto arribo a un umbral en las ganancias de mortalidad impuesto por las condiciones socioeconómicas del país. Esta hipótesis sugirió que los progresos sanitarios perdieron su independencia de los niveles de desarrollo económico.
+
+Esta interpretación se sustentaba en la idea de que los principales techos alcanzados en los valores de \gls{evn} se daban en las regiones con mayor desarrollo socioeconómico de la Argentina, mientras que, en el resto de las zonas, de menor desarrollo relativo, mostraban un ascenso en la \gls{evn}. En efecto, en la tabla de mortalidad de 1969-1971 mostró un aumento de la mortalidad que afectó especialmente al sexo masculino, observándose que la \gls{evn} de los varones desciende respecto de la registrada para el periodo 1959-1961 en las regiones de mayor desarrollo relativo del país, mientras que aumenta en regiones de menor desarrollo, donde el nivel de la \gls{evn} era menor en el periodo anterior. Para las mujeres, en cambio, la \gls{evn} pareció mostrarse prácticamente estable al nivel del total del país, mientras que disminuyó en la región Buenos Aires, pero de forma más moderada que para los varones.
+
+Si bien falta aún estudio exhaustivo de lo que sucedió durante ese lapso, se han formulado pocas hipótesis alternativas, aún no exploradas del todo. Una de ellas sugiere que una posible explicación a este comportamiento, incoherente, de la esperanza de vida –en un contexto de amplio desarrollo socioeconómico– podría deberse al hecho del posible aumento en la cobertura de defunciones y en la calidad de certificación de causas de muerte, gracias a la formalización del Sistema de Estadísticas Vitales en el año 1968 [@Bankirer2010]. Sin embargo, para comprobar tal hipótesis deberían revisarse las estadísticas vitales de ese período, ya que se supone que los que elaboraron la tabla conocían las limitaciones de los datos construidos.
+
+Aunque moderados si se los compara con los años previos, los avances en la \gls{evn} que ocurrirían en el período posterior, a pesar del deterioro de las condiciones socioeconómicas de la Argentina en su conjunto hasta el año 2003, mostrarían los límites de tal hipótesis. Es que ya a partir de 1980 la \gls{evn} comienza nuevamente a mostrar una tendencia coherente con el descenso de la mortalidad. Este período fue seguido de una recuperación de la tendencia ascendente, pero de forma más lenta, alcanzado para el 2009 una \gls{evn} para ambos sexos de 75,34 años. Este comportamiento es consistente con el esperado aumento de la \gls{evn} cuando decrecen los niveles de mortalidad, siguiendo el comportamiento que distintos autores consideran como el de una curva logística.
+
+## Hipótesis {#sec:hip}
+
+Como marco general se puede contextualizar la Argentina, a partir de su modernización y exitosa integración con el mercado mundial a fines del siglo XIX, como un país anómalo en términos demográficos y sanitarios: receptor importante de inmigrantes con una amplia cobertura del sistema educativo, y donde el bajo desempleo, el bajo costo de los alimentos y el desarrollo de un saneamiento eficaz en las ciudades producía un buen nivel sanitario, y consecuentemente una baja tasa de mortalidad, infantil y adulta. Sin embargo, este camino -pionero a nivel mundial- se desacelera a partir de mediados de la década de 1970.
+
+Bajo este marco, este trabajo proponer contrastar empíricamente el vínculo, a nivel desagregado, entre los niveles y estructura de la mortalidad a nivel sub-nacional que las aproximaciones teóricas ponderan en distinta medida como vinculadas, a largo plazo, con desarrollo económico, a partir de la década de 1980.
+
+¿Qué rol juega la dinámica de la mortalidad sub-nacional en la configuración de los niveles de mortalidad a nivel regional y total país? ¿Se debe la desaceleración del descenso de la mortalidad en la Argentina a la existencia de sectores socialmente heterogéneos, >rezagados> en el proceso de transición epidemiológica? ¿Se asocian patrones diferenciales a distintos modelos desarrollo económico aplicados a lo largo de distintos ciclos socio-históricos, a partir de la década de 1980? Hipótesis principal: los niveles de mortalidad y el ritmo de su descenso, a nivel provincial y total país, son dependientes de la creciente desigualdad social, aspecto posible de vislumbrar mediante la observación sub-nacional de la mortalidad.
+
+En base a estas preguntas e hipótesis de trabajo se propone estudiar los niveles y la estructura de la mortalidad a nivel sub-nacional (departamentos) en lo relativo a dos dimensiones concretas: 
+  
+a) como elemento de la evolución a largo plazo del desarrollo social y económico ,
+b) como factor asociado a distintas etapas de la transición demográfica y epidemiológica.
+
+# Data and Methods {#sec:dat}
+
+Incluido en este reporte/repositorio se encuentran las bases de datos originales llamadas `DEFT2009.DBF`, `DEFT2010.DBF`, `DEFT2011.DBF`, `DEFT2012.DBF` y `DEFT2013.DBF`. Contienen información anual sobre Defunciones oficiales anuales de la \gls{deis} según distintas variables, para Argentina, a nivel de total país. El diseño de registro de estas bases puede consultarse en el archivo [COD_DEF2001_2015](../analysis/data/deis/COD_DEF2001_2015.xls), junto con los códigos por jurisdicción [cods_prov_depto_cen010](../analysis/data/deis/cods_prov_depto_cen010.xls).
+
+De estas bases se toman las variables 'Departamento de residencia', 'Jurisdicción de residencia', 'Edad', 'Unidad de edad', 'Sexo' y 'Fecha de defunción'. Sus variables fueron ajustadas y ordenadas para generar una base de datos limpia y ordenada, con las mismas definiciones de categorías en cada variable. 
+
+
+```{r loaddata1, include=TRUE, echo=FALSE, cache=TRUE}
+load("../analysis/env/db.RData")
+head(db)
+
+# Esta tabla muestra el registro de inscripción de muertes tardías. Al utilizar fecha de ocurrencia, no afecta el análisis
+
+table(db$anio,db$fd_aa)
+```
+ 
+
+
+<!--
+```{r linda-tabla, tidy=FALSE, cache=FALSE}
+knitr::kable(
+  head(db,6), caption = 'Una linda tabla',
+  booktabs = TRUE
+)
+```
+--> 
+
+```{r regtar, cache=TRUE}
+
+```
+
+
+Fue utilizada la información proveniente del registro de hechos vitales (1980-2015), elaborados por la \gls{deis} -dependiente del Ministerio de Salud de la Nación-, que produce estadísticas anuales correspondientes al total de registros de nacimientos, defunciones, defunciones fetales y matrimonios, con cobertura territorial nacional.
+
+Se tomaron las bases originales y fueron transformadas
+
+El diseño de registro de la base de datos (*raw data*) fue el provisto por la \gls{deis} y se trata de este archivo:
+
+<!--```{r, echo=TRUE}
+data.info <- read_excel("data/deis/COD_DEF2001_2015.xls")
+data.info
+```-->
+
+## La calidad de los datos
+
+Dentro del contexto latinoamericano^[De acuerdo al \gls{celade} [-@CELADE2012] ha mejorado mucho la calidad de las estadísticas vitales en la región desde mediados del siglo XX: en lo que respeta a la cobertura, se estima que la región pasó de un sub-registro promedio del 75% a 22%. Sin embargo, la persistencia de algunos desafíosse mantiene, siendo la cobertura a nivel sub-nacional, un aspecto muy importante [@Ribotta2016]], Argentina se ha caracterizado por presentar una buena cobertura de registro de vitales ^[Algunas evaluaciones parciales respecto de la calidad de información de este sistema -que previo a la década de 1990 conservaba grandes inconvenientes de variabilidad e integridad de sus registros- sugirieron resultados a veces no siempre compatibles [@Torrado1993, p. 307]. Pantelides [-@Pantelides1989, pp. 9-10] aludió a una serie de graves problemas de calidad (tales como de definiciones, criterios de registro, omisiones y otros) a lo largo de la serie, que fueron de a poco mejorándose entre 1980 y 1990. Si bien se especulaba que ya para fines del siglo XX el sistema de registro había mejorado con respecto al pasado y era, en términos generales, aceptable, un estudio específico [@INDEC-UNICEF2003] reveló una significativa omisión. Hacia el año 2001 los formularios se rediseñaron y gradualmente pareció haber mejorado la calidad de la información registrada [@Poblacion2013, pp. 23-27].]. Los estudios más recientes que estimaron los niveles de cobertura de los nacimientos y las defunciones infantiles para Argentina [@FernandezEtAl2008], muestran mejoras en el sistema de estadísticas vitales de Argentina a lo largo del tiempo, que no suele ser la norma en el resto de los países de la región. Si bien se han aplicado distintas metodologías directas para estimar la cobertura en distintos contextos sub-nacionales –véase al respecto Ribotta [-@Ribotta2016]–, en el caso particular de Argentina, sólo se cuenta con un estudio que investigó los niveles de cobertura en lo que respecta exclusivamente a los nacimientos^[Salvo el trabajo de Sacco [-@Sacco2016a], que, utilizando \gls{ddm}, analizó los datos de mortalidad para el periodo 2009-2011–, a nivel del total del país].
+
+Esa investigación mostró que los datos censales informaban un mayor número de nacimientos que los datos provenientes de los registros, pero, comparando ambas fuentes, concluía que la omisión de registro nacidos vivos era de calidad aceptable [@FernandezEtAl2008, p. 125]. El informe de la \gls{oms} [-@OMS2012] ubicó a la Argentina, a nivel global, como uno de los países con mejores niveles de cobertura del registro de nacimiento, mayores al 90%.
+
+% de desconocidos por sexo. 
+Por ejemplo, Buenos Aires...tiene 26% de desconocidos en algunos departamentos por eso no discriminamos por sexo.
+Agregar gráfico de desconocidos por sexo en cada provincia.
+
+Gráfico por edad. Todas las provincias tienen deptos por abajo del 2% de desconocidos en edad. 
+
+Agregar tabla. 
+
+
+El análisis será focalizado luego de la segunda mitad del siglo XX, a partir de la década de 1980, por razones del corpus y por la escasez de datos y por su baja calidad previo a esa fecha, debido al sub-registro estructural y/o deliberado de las tasas de mortalidad en Argentina.
+
+## Procedimientos Metodológicos 
+
+Los procedimientos metodológicos propuestos para cumplir con los objetivos planteados, siguiendo a Freire et. al. [-@FreireEtAl2015] remiten a aplicar \gls{ddm} [@TimaeusDorringtonHill2013], en primer lugar, y luego realizar estimaciones bayesianas a nivel sub-nacional. Específicamente se propone las siguientes actividades y objetivos particulares:
+  
+  Para el objetivo 1),
+
+a. Evaluar la calidad de los datos de población (denominador) y defunciones (numerador) por edades, por provincia y departamentos.
+b. Evaluar y diagnosticar la necesidad de ajuste de numerador y denominador.
+c. Estimar tasas de mortalidad por edad y evaluar la necesidad de tratamiento estadístico.
+
+Para el objetivo 2):
+  
+d. Seleccionar métodos de estimación por departamento.
+e. Estimar intervalos de confianza.
+g. Elaborar tablas de mortalidad y esperanzas de vida.
+h. Analizar heterogeneidad entre departamentos.
+
+Objetivos específicos:
+FASE 1
+	Elección de provincias
+	Caracterizar la transición de cada provincia (brevísimo)
+Corrección de cobertura a nivel subprovincial: poblacion (denominador) y defunciones (numerador) por edades
+Para población se puede tomar los datos INDEC 2010 conciliados, y aplicarle estructura observada (pero corregida) de Censo
+Para defunciones se puede corregir mediante DDM (Métodos de distribución de muertes)
+Estimación de las tasas de mortalidad por edad a nivel subprovincial: diagnóstico y necesidad de estimación estadística
+FASE 2
+	Selección de métodos de estimación por departamento: búsqueda bibliográfica breve
+Estimación e intervalos de confianza	
+Cómo medir heterogeneidad interna
+
+Si bien se suele catalogar a Argentina como un país con buenas estadísticas de muerte (fuente), de lo que se conoce existe un porcentaje desigual de defunciones infantiles no registradas por provincia (fuente DEIS). En este sentido, como la fuente de datos es un registro, pensando en la estimación de tasas de mortalidad por edad, podríamos pensar que la varianza sería nula y el sesgo (ambos componentes del error medio cuadrático de un estimador) vendría dado por el patrón de casos omitidos en cada jurisdicción. El segundo de los componentes del error no será tratado en esta instancia de la investigación, aunque pueden verse intentos crecientes por abordar el tema, dependiendo de la información auxiliar con la que se cuente (Schmertmann y Gonzaga (2018), Queiroz y otros (2017)) (tampoco el que refiere a los problemas de conteo censal). Respecto al primero, no podemos pensarla nula debido a que existen fenómenos con una cantidad pequeña de "experimentos" (pocos expuestos en nuestro caso), que presentan una mayor varianza en sus estimaciones, por lo que requiere un tratamiento especial con el fin de reflejar el riesgo de mortalidad subyacente. 
+Con este fin utilizaremos el método bayesiano empírico, en post de mejorar la eficiencia estadística de los estimadores de tasas de mortalidad, disminuyendo la varianza en los casos de jurisdicciones pequeñas (Efron y Morris (1975), Marshall (1990), Longford (2005), Assuncao (2005)). La distribución a priori corresponde a la distribución conjunta del vector de tasas de mortalidad por edad del área mayor. Luego, mediante lo observado en cada área menor, se produce el ajuste bayesiano de la distribución de mortalidad a posteriori. La característica de “empírico” radica en que las distribuciones de los parámetros del área mayor son estimadas a partir de los datos.
+La definición de área mayor debe explotar la idea de similitud interna, para poder suponer que la mortalidad de áreas menores son realizaciones de un proceso estocástico mayor, supuesto importante. La similitud en los patrones de mortalidad debe aproximarse de manera indirecta, lo que en nuestro caso, y por ser una investigación incipiente, se supone por pertenencia a la misma provincia, cuestión que no siempre es acertada, donde la “distancia” entre jurisdicciones no se mide por kilómetros (Longford, 2005).
+Considerando un grupo de edad quinquenal cualquiera en un área i, la distribución de defunciones d se supone un proceso de Poisson, donde E(dx,4i/mx,4i) =Nx,4imx,4i , siendo N los expuestos y m la tasa de mortalidad. Siendo mx,4i el estimador de máxima verosimilitud Dx,4i/Nx,4i , y dada una distribución a priori del parámetro mx,4 , entonces su esperanza no condicionada sería Em{E(mx,4i/mx,4i )}=Em{mx,4i}=mx,4 , y su varianza no condicionada Vm(E(mx,4i/mx,4i ))+Em(V(mx,4i/mx,4i )) =Vm(mx,4i)+Em(mx,4iNx,4i)=Vm(mx,4i)+mx,4Nx,4i.
+El estimador lineal bayesiano mx,4i que minimiza el error cuadrático medio de mx,4i (e indicadores que sean funciones lineales de este) es (Robbins, 1983): 
+mx,4i=mx,4i+Sx,4i(mx,4i-mx,4i)
+De nuevo, es empírico porque mx,4 se reemplaza por mx,4 , la media ponderada de las áreas menores. El factor Sx,4i (de contracción o “shrinkage”) es el ratio entre la esperanza de la varianza muestral del estimador en el área menor y la varianza no condicionada del estimador, lo que termina siendo: 
+Sx,4i=Vmmx,4iVmmx,4i+mx,4Nx,4i
+	 O visto de otra forma, el ratio entre la varianza del área menor respecto a la suma de la varianza total (del área menor y mayor), en sintonía con un análisis de la varianza clásico (ANOVA). Siguiendo este razonamiento, en un contexto de extrema homogeneidad, se podría caracterizar un área menor muy pequeña a partir de la estimación del área mayor (Sx,4i≅1). Por otro lado, áreas de alto peso poblacional tomarán valores cercanos a los observados (Sx,4i≅0). En el medio de estos extremos, la función combina linealmente la estimación del área mayor respecto a la del área menor, siendo la ponderación entre ambas tal que las jurisdicciones con población pequeña (el caso extremo sería aquella que no presente eventos en alguna categoría etaria), se acercarán más al área mayor que aquellas con un porcentaje provincial importante.
+	Longford (1999) extendió esta idea a vectores de variables aleatorias de áreas menores, con la posibilidad de aprovechar la correlación entre las mismas. En nuestro caso si la tasa de mortalidad del grupo de edad entre x y x+4 del área i es mayor que la del área j, que la correlación sea alta implicaría que en una edad contigua ocurra lo mismo con más chance. Los cálculos seguidos en este trabajo en base a esta idea, siguen el desarrollo metodológico de Assuncao (2005, pág. 543 y 544), que estima los parámetros por el método de los momentos para el caso de tasas de fecundidad en Brasil.
+
+
+
+# Resultados
+
+Para poner resultados usar 
+
+Estimaciones de esperanza de vida e intervalos de confianza en areas menores en cada pronvincia..
+Elegimos 4 .
+
+## Tables
+
+
+## Figures
+
+
+## Results from analyses
+
+# Conclusions
+
+## Posibles impactos
+  
+El plan de trabajo aquí propuesto plantea, a su vez, aportar a la construcción de una base de datos para la evaluación y formulación de políticas públicas, con el objeto de brindar a las autoridades responsables en cada nivel geográfico (provinciales y municipales) de herramientas cuyo diagnóstico permita identificar grupos de población específicos para la ejecución de políticas públicas particulares, en base a datos censales y estadísticas vitales.
+
+Se propone utilizar la información construida como insumo información para la Latin American Human Mortality Database (https://lamortalidad.org/) y profundizar el estudio de los efectos edad-periodo-cohorte de la mortalidad en Argentina, parcialmente estudiados a nivel de total del país por Sacco [-@Sacco2016] y en la Ciudad de Buenos Aires por Grushka y Sacco [-@GrushkaSacco2017], a fin de agregar una observación adicional a las miradas transversales.
+
+La investigación propuesta tiene, en el corto plazo, importancia provincial, regional y local. La información derivada puede contribuir al desarrollo de investigaciones en profundidad en el futuro por parte de distintos usuarios y se espera que sea apta para la evaluación y formulación de políticas públicas y para brindar a las autoridades responsables en cada nivel geográfico y administrativo de herramientas cuyo diagnóstico permita identificar grupos de población específicos para la ejecución de políticas públicas particulares.
+
+Siendo múltiples los lazos entre reproducción de población y reproducción social y entre crecimiento económico y crecimiento demográfico [@Otero2007], los resultados de este trabajo están vinculada estrechamente como insumo para el diseño de políticas públicas y en la consideración de la mortalidad como componente necesario del desarrollo económico.
+
+\parskip=5pt
+\parindent=0pt
+\spacing{1.0}
+
+\appendix
+
+# Appendix {#sec:append}
+
+# Descartes
+
+
+
+
+
+# References
+
+<div id='refs'></div>
+  
+ 
