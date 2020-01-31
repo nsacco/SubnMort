@@ -33,8 +33,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 library(kableExtra)
 # change your dire
-Dire="C:/Proyectos/SubnMort/"
-load(paste0(Dire,"analysis/Rmarkdown_variables.RData"))
+load("analysis/Rmarkdown_variables.RData")
 # rmarkdown::render('Paper_draft_ESP.Rmd', encoding="UTF-8")
 ```
 
