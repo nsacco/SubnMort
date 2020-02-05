@@ -39,17 +39,7 @@ load("analysis/Rmarkdown_variables.RData")
 
 ## **Introducción**  
 
-En América Latina y el Caribe, la demanda de estimaciones epidemiológicas (y de mortalidad, específicamente) sobre heterogeneidad a nivel subnacional está creciendo, tanto como una herramienta para la aplicación de diferentes planes de desarrollo como para la asignación de recursos. La pregunta es siempre: ¿qué esconden los promedios regionales? 
 
-El problema principal es el de tratar con fenómenos con un pequeño número de experimentos, y en muchos casos desconocida cobertura. La experiencia en América Latina está liderada por Brasil, donde ya existe un desarrollo metodológico de avance sostenido (@FreireEtAl2015). 
-
-<!-- Algo de mortalidad general de Arg y necesidad de ver lo subnacional--> 
-
-En Argentina, se encontraron experiencias sobre estimaciones de la tendencia de mortalidad infantil (@torcida2008) y las comunas de la Ciudad Autónoma de Buenos Aires (@Grushka2013). Al mismo tiempo, otros estudios se centran en el desarrollo de herramientas demográficas para medir la heterogeneidad en una población (@Vaupel_Missov_2013; @vanRaalte_Sasson_Martikainen_2018). En este sentido, solo considerando la información de la tabla de vida, podría haber múltiples capas de análisis de desigualdad teniendo en cuenta distintos niveles espaciales.
-
-Este trabajo como fin tiene estimar el nivel de mortalidad para áreas menores de Argentina, en este caso, de departamentos  durante el período 2009-2011. Con el criterio de comenzar con la población con mayor participación en total país se seleccionó la región pampeana. 
-
-Se propone la siguiente línea de desarrollo. Se realiza un análisis inicial de calidad de datos, se repasan tres metodologías de suavizamiento, redefiniendo a su vez áreas mayores por fuera de lo estrictamente administrativo, se construyen tablas de mortalidad y se selecciona un método con el cual dar una primera aproximación al problema. En el medio se encuentraron inconvenientes con la información, los cuales se trataron de destacar y dar soluciones^[El material complementario, código y resultados se pueden encontrar en https://github.com/nsacco/mortalidad_Argentina.].
 
 ## **Datos**
 
