@@ -1,9 +1,9 @@
 ---
-title: "Mortality Estimates of Departments in Argentina: the case of Pampean Region (2009-2011)"
+title: "A Methodological Approach Comparison of Mortality Estimates for Small Areas: the Pampean Region in Argentina (2009-2011)"
 author: |
   Nicolás Sacco [^ns]; Iván Williams [^iw]; Bernardo L. Queiroz [^bq]
 
-    [^ns]: Cedeplar-UFMG, nsacco@cedeplar.ufmg.br
+    [^ns]: Penn State, nsacco@psu.edu
     [^iw]: Universidad Nacional de Luján, ivanwilliams1985@gmail.com
     [^bq]: Cedeplar-UFMG, lanza@cedeplar.ufmg.br
 
@@ -14,15 +14,58 @@ output: pdf_document
 citation_package: natbib
 bibliography: [../bib/refsubmort.bib]
 link-citations: true
+
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
-# rmarkdown::render('C:/Proyectos/mortalidad_Argentina/analysis/Paper_draft.Rmd', encoding="UTF-8")
+library(kableExtra)
+# change your dire
+load("analysis/Rmarkdown_variables.RData")
+# rmarkdown::render('Paper_draft_ESP.Rmd', encoding="UTF-8")
 ```
 
+# **Abstract**
+
+## **Background**
+
+While the demand for epidemiological estimates of small areas is growing, recent studies show a wide gap and persistent inequalities in life expectancy at birth in Latin America. The lack of geospatial data challenge the application of different methods to study health differentials. Often data in small areas are non-existent or sparce in this region. Spatial patterns are essential to understand individual demographic outcomes related with the characteristics of a place, also as a tool for the application of development plans and for the allocation of resources.
+
+## **Objectives**
+
+The history of estimation in small areas is scarce in Argentina, a clear example of a country with few data sources, but also a very interesting case of the epidemiological transition, often not address by the previous literature. Based on the experience of new applications according to the available auxiliary information, in this paper we apply three different methods to estimate and then compare mortality levels in small areas in the Pampean Region of Argentina, during the period 2009-2011.
+
+## **Methods** 
+
+Life expectancy at birht was calculated based on a Bayesian approach, a relational life-table method, smoothing spatial data ‘borrowing strength’ from neighboring areas, and third a indirect demographic approach. Estimates are compared to calculate $q_0$ rates from full death registers and then related to spatial areas, using a simple regionalization analysis.
+
+## **Results** 
+
+Results display the potential value of the Bayesian method at the small area-spatial scale. Estimated rates indicate that there is a huge variability in life expectancy at birht withing and between regions, with a spread of up to more than 6 years in the Province of Buenos Aires. Furthermore, we find suggestive evidence that the rates by age present a higher infant mortality but also a higher risk in older adults, in provinces that exibhit more heterogeneity.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
 ## **Introduction**  
+
+Do mortality disparities subsist among small-areas? Previous research in the demography of mortality differentials argue that they would be gradually dismiss by the epidemiological transition, public health policies, and improvements in quality of life (CITA). In most countries, life expectancy at birth ($q_0$) increase during the early 20th century, due the advancement of knowledge and medical technology to fight infectious diseases and improvements in living conditions associated with socioeconomic development.
+
+Althought socioeconomic mortality differentials contributed to sustain the hypotesis of persistent inequality at death during and after the epidemiological transition (CITA, Palloni, ?), some authors expect that health outcomes and disparities would be extinguish as the demographic transition unfolds (CITA). Retrospective views, however, show that mortality differentials are persitent and have grown over time in many cases by socioeconomic status (CITA). Anyhow, it is useful account if this disparities continue and/or arise regardless of auspicious initial scenarios.
+
+The most persuasive theoretical explanation of this issues argues that the relationship between mortality and socioeconomic position has maintained over time because the social class diferential access to information and health technology (CITA). This couse-effect hypothesis lead to significant research developments and teorical contributions. However, identify the relationshiop based on this patters and its demographic outcomes presents a serious challenge in countries where with few data sources are available. Mortality research imply the intricate patters of social, demographic and enviromental interactions. For that reason, spatial demography arise as significant perspective to answer demographic question (Matthews, 2013). In that sense, spatial patterns are essential to understand individual demographic outcomes related with the characteristics of a place.
+
+Argentina represents a clear example of a country with few data sources, but also a very interesting case of the epidemiological transition, often not address by the previous literature. In this sense the goal of this article 
+
+----
+ Often data in small areas are non-existent or sparce in this region. Spatial patterns are essential to understand individual demographic outcomes related with the characteristics of a place, also as a tool for the application of development plans and for the allocation of resources.
+
+
+
+The lack of geospatial data challenge the application of different methods to study health differentials. Often data in small areas are non-existent or sparce in this region. Spatial patterns are essential to understand individual demographic outcomes related with the characteristics of a place, also as a tool for the application of development plans and for the allocation of resources.
+
+
+
+En América Latina y el Caribe, la demanda de estimaciones epidemiológicas (y de mortalidad, específicamente) sobre heterogeneidad a nivel subnacional está creciendo, tanto como una herramienta para la aplicación de diferentes planes de desarrollo como para la asignación de recursos. La pregunta es siempre: ¿qué esconden los promedios regionales? 
 
 In Latin America and the Caribbean, the demand for epidemiological (and mortality, specifically) estimates of the sub-national heterogeneity is growing, both as a tool for the application of different development plans and for the allocation of resources. The experience in Latin America is led by Brazil, where there is already a sustained methodological development @FreireEtAl2015. In Argentina, experiences were found on estimates of the infant mortality trend (@torcida2008), and the communes of the Autonomous City of Buenos Aires (@Grushka2013). At the same time, more studies are focused in developing demographic tools for measuring individual heterogeneity in a population (@Vaupel_Missov_2013; @vanRaalte_Sasson_Martikainen_2018). In this sense, only considering life table information, there could be multiple layers of inequality analysis just by grouping by administrative levels.
  
@@ -32,6 +75,26 @@ The objective of this work can be enunciated following these progressive steps:
 	+ Test the hypothesis of the negative relationship between internal heterogeneity and the level of mortality at the province level.  
 
 In this first work, the step 1 is done ^[All the supplemental material, code and results can be found in https://github.com/nsacco/mortalidad_Argentina. It´s work in progress]. 
+
+
+El problema principal es el de tratar con fenómenos con un pequeño número de experimentos, y en muchos casos desconocida cobertura. La experiencia en América Latina está liderada por Brasil, donde ya existe un desarrollo metodológico de avance sostenido (@FreireEtAl2015). 
+
+<!-- Algo de mortalidad general de Arg y necesidad de ver lo subnacional--> 
+
+
+In comparison with other Latin American countries, Argentina’s early socio-economic development, high degree of urbanization, and the expansion of formal education all influenced the reduction of mortality taking place earlier than in most other countries of the region.
+This took place due to improvements in living conditions associated with socioeconomic development, rather than the advancement of knowledge and medical technology to fight infectious diseases. Although it took place more quickly and began from higher levels, the drop in mortality in Argentina can, in that sense, be likened to the pattern followed by developed countries with greater distance then from most of the rest of Latin America (Lattes, 1975; Grushka, 2014, p. 169) .
+
+
+En Argentina, se encontraron experiencias sobre estimaciones de la tendencia de mortalidad infantil (@torcida2008) y las comunas de la Ciudad Autónoma de Buenos Aires (@Grushka2013). Al mismo tiempo, otros estudios se centran en el desarrollo de herramientas demográficas para medir la heterogeneidad en una población (@Vaupel_Missov_2013; @vanRaalte_Sasson_Martikainen_2018). En este sentido, solo considerando la información de la tabla de vida, podría haber múltiples capas de análisis de desigualdad teniendo en cuenta distintos niveles espaciales.
+
+Este trabajo como fin tiene estimar el nivel de mortalidad para áreas menores de Argentina, en este caso, de departamentos  durante el período 2009-2011. Con el criterio de comenzar con la población con mayor participación en total país se seleccionó la región pampeana. 
+
+Se propone la siguiente línea de desarrollo. Se realiza un análisis inicial de calidad de datos, se repasan tres metodologías de suavizamiento, redefiniendo a su vez áreas mayores por fuera de lo estrictamente administrativo, se construyen tablas de mortalidad y se selecciona un método con el cual dar una primera aproximación al problema. En el medio se encuentraron inconvenientes con la información, los cuales se trataron de destacar y dar soluciones^[El material complementario, código y resultados se pueden encontrar en https://github.com/nsacco/mortalidad_Argentina.].
+
+## 
+
+
 
 
 ## **Data**
@@ -146,14 +209,6 @@ include_graphics('plots/AjusteFeos.pdf')
 ```
 
 In the next we'll take the Bayes empirical results because of the conservative scenario in ranking departments ^[A simulation study will be done here to achieve stronger conclusions]. To take randomness in account, bootstrap re-sampling of the death counts following a Poisson distribution was done. This gave us confidence intervals of the life table functions and specifically of life expectancy at birth (see \ref{fig:jerarq} and \ref{tab:table_e0}). 
-
-```{r jerarq, echo = F, fig.align='center', fig.height=6, out.width=c("48%","48%"), fig.show='hold', fig.cap="Life expectancy at birth for Pampean provinces (except CABA). Ranked with the mean, and with confidence intervales. Source: own based in Census and DEIS"}
-include_graphics(path = c('plots/Buenos Aires.pdf',
-													'plots/Córdoba.pdf',
-								 					'plots/Entre Ríos.pdf',
-													'plots/Santa Fe.pdf',
-													'plots/La Pampa.pdf'))
-```
 
 
 **An analysis: Buenos Aires**
