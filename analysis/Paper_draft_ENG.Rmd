@@ -46,89 +46,6 @@ Results display the potential value of the Bayesian method at the small area-spa
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
-## **Introduction**  
-
-Do mortality disparities subsist among small-areas? Previous research in the demography of mortality differentials argue that they would be gradually dismiss by the epidemiological transition, public health policies, and improvements in quality of life (CITA). In most countries hig-income and middle-income countries, life expectancy at birth ($q_0$) increase during the early 20th century, due the advancement of knowledge and medical technology to fight infectious diseases and improvements in living conditions associated with socioeconomic development.
-
-Althought socioeconomic mortality differentials contributed to sustain the hypotesis of persistent inequality at death during and after the epidemiological transition (CITA, Palloni, ?), some authors expect that health outcomes and disparities would be extinguish as the demographic change unfolds (CITA). Retrospective views, however, show that mortality differentials are persitent and have grown over time in many cases by socioeconomic status (CITA). Anyhow, it is useful account if this disparities continue and/or arise regardless of auspicious initial scenarios.
-
-The most persuasive theoretical explanation of this issues argues that the relationship between mortality and socioeconomic position has maintained over time because the social class diferential access to information and health technology (CITA). This couse-effect hypothesis lead to significant research developments and teorical contributions. However, identify the relationshiop based on this patters and its demographic outcomes presents a serious challenge in countries where with few data sources are available. Mortality research imply the intricate patters of social, demographic and enviromental interactions. For that reason, spatial demography arise as significant perspective to answer demographic question (Matthews, 2013). In that sense, spatial patterns are essential to understand individual demographic outcomes related with the characteristics of a place.
-
-On this subject, many recent contributions develop methods to estimate small area data. *****Mas sobre aportes recientes para estimacion de mortalidad en areas menores en el mundo.***.
-
-Argentina represents a clear example of a country with few data sources, but also a very interesting case of the mortality transition, often not address by previous research. With all this, the aim of this article is to generate mortality estimates that exemplify the relationship between status and health. For that, we apply three different methods to estimate and then compare mortality levels in small areas in the Argentinean Pampean Region, during the period 2009-2011. To test how the choosen methods perform, we discriminate this region because is most populate region in the country.
-
-We use administrative death register data from the Department of Health Statistics and Information of the Ministry of Health of the Nation (DEIS, acronym in Spanish; the government offical unit in charge of death counts administration), and population estimates prepare by the National Institute of Statistics and Census (INDEC, acronym in Spanish; the Argentine government agency responsible for the collection and processing of statistical data, such as population censuses). Using three different approaches, we first apply Death Distribution Methods (DDM) to analyze We then combine DDM with empirical bayesian approach to produce mortality estimates for small areas (municipalities) in Brazil. The two-step procedure, allows us to correct the underegistration of death counts and minimize random fluctuations that might occur when we calculate mortality levels in small areas. 
-
-
-Debido a la poca experiencia de estudios previos que estimen mortalidad *general* en áreas menores en Argentina, se decidió aplicar tres técnicas: una basada en la teoría bayesiana, la segunda basada en métodos relacionales de tablas de vida pero agregando técnicas estadísticas de suavizado, y tercero, un enfoque demográfico clásico, considerado el método por default debido a su simplicidad. Antes de la estimación, se realizó un procedimiento de regionalización para aprovechar la similitud espacial entre áreas pequeñas, independientemente de su pertenencia político-administrativa.
-
-the quality of mortality data and estimate adult mortality levels for microregions in Brazil. 
-
-In Latin America and the Caribbean, the demand for epidemiological (and mortality, specifically) estimates of the sub-national heterogeneity is growing, both as a tool for the application of different development plans and for the allocation of resources. The experience in Latin America is led by Brazil, where there is already a sustained methodological development @FreireEtAl2015. In Argentina, experiences were found on estimates of the infant mortality trend (@torcida2008), and the communes of the Autonomous City of Buenos Aires (@Grushka2013). At the same time, more studies are focused in developing demographic tools for measuring individual heterogeneity in a population (@Vaupel_Missov_2013; @vanRaalte_Sasson_Martikainen_2018). In this sense, only considering life table information, there could be multiple layers of inequality analysis just by grouping by administrative levels.
-
-
-
-
-
-
-
-# Why Argetina? Why the Pampas?
-
-Debido a la poca experiencia de estudios previos que estimen mortalidad *general* en áreas menores en Argentina, se decidió aplicar tres técnicas
-
-En Argentina, se encontraron experiencias sobre estimaciones de la tendencia de mortalidad infantil (@torcida2008) y las comunas de la Ciudad Autónoma de Buenos Aires (@Grushka2013). Al mismo tiempo, otros estudios se centran en el desarrollo de herramientas demográficas para medir la heterogeneidad en una población (@Vaupel_Missov_2013; @vanRaalte_Sasson_Martikainen_2018). En este sentido, solo considerando la información de la tabla de vida, podría haber múltiples capas de análisis de desigualdad teniendo en cuenta distintos niveles espaciales.
-
-Este trabajo como fin tiene estimar el nivel de mortalidad para áreas menores de Argentina, en este caso, de departamentos  durante el período 2009-2011. Con el criterio de comenzar con la población con mayor participación en total país se seleccionó la región pampeana. 
-
-Se propone la siguiente línea de desarrollo. Se realiza un análisis inicial de calidad de datos, se repasan tres metodologías de suavizamiento, redefiniendo a su vez áreas mayores por fuera de lo estrictamente administrativo, se construyen tablas de mortalidad y se selecciona un método con el cual dar una primera aproximación al problema. En el medio se encuentraron inconvenientes con la información, los cuales se trataron de destacar y dar soluciones^[El material complementario, código y resultados se pueden encontrar en https://github.com/nsacco/mortalidad_Argentina.].
-
-
-
-
-Este trabajo como fin tiene estimar el nivel de mortalidad para áreas menores de Argentina, en este caso, de departamentos  durante el período 2009-2011. Con el criterio de comenzar con la población con mayor participación en total país se seleccionó la región pampeana. 
-
-
-The lack of geospatial data challenge the application of different methods to study health differentials. Often data in small areas are non-existent or sparce in this region. Spatial patterns are essential to understand individual demographic outcomes related with the characteristics of a place, also as a tool for the application of development plans and for the allocation of resources.
-
-En América Latina y el Caribe, la demanda de estimaciones epidemiológicas (y de mortalidad, específicamente) sobre heterogeneidad a nivel subnacional está creciendo, tanto como una herramienta para la aplicación de diferentes planes de desarrollo como para la asignación de recursos. La pregunta es siempre: ¿qué esconden los promedios regionales? 
-
-El problema principal es el de tratar con fenómenos con un pequeño número de experimentos, y en muchos casos desconocida cobertura. La experiencia en América Latina está liderada por Brasil, donde ya existe un desarrollo metodológico de avance sostenido (@FreireEtAl2015). 
-
-<!-- Algo de mortalidad general de Arg y necesidad de ver lo subnacional--> 
-
-En América Latina y el Caribe, la demanda de estimaciones epidemiológicas (y de mortalidad, específicamente) sobre heterogeneidad a nivel subnacional está creciendo, tanto como una herramienta para la aplicación de diferentes planes de desarrollo como para la asignación de recursos. La pregunta es siempre: ¿qué esconden los promedios regionales? 
-
-
- 
-The objective of this work can be enunciated following these progressive steps:  
-	+ Estimate the level of mortality of the departments during the period 2009-2011. With the criteria of starting with the population with bigger share to explore methodological approaches, the Pampean region was selected.  
-	+ Estimate the heterogeneity between and within departments.  
-	+ Test the hypothesis of the negative relationship between internal heterogeneity and the level of mortality at the province level.  
-
-In this first work, the step 1 is done ^[All the supplemental material, code and results can be found in https://github.com/nsacco/mortalidad_Argentina. It´s work in progress]. 
-
-
-El problema principal es el de tratar con fenómenos con un pequeño número de experimentos, y en muchos casos desconocida cobertura. La experiencia en América Latina está liderada por Brasil, donde ya existe un desarrollo metodológico de avance sostenido (@FreireEtAl2015). 
-
-<!-- Algo de mortalidad general de Arg y necesidad de ver lo subnacional--> 
-
-
-In comparison with other Latin American countries, Argentina’s early socio-economic development, high degree of urbanization, and the expansion of formal education all influenced the reduction of mortality taking place earlier than in most other countries of the region.
-This took place due to improvements in living conditions associated with socioeconomic development, rather than the advancement of knowledge and medical technology to fight infectious diseases. Although it took place more quickly and began from higher levels, the drop in mortality in Argentina can, in that sense, be likened to the pattern followed by developed countries with greater distance then from most of the rest of Latin America (Lattes, 1975; Grushka, 2014, p. 169) .
-
-
-En Argentina, se encontraron experiencias sobre estimaciones de la tendencia de mortalidad infantil (@torcida2008) y las comunas de la Ciudad Autónoma de Buenos Aires (@Grushka2013). Al mismo tiempo, otros estudios se centran en el desarrollo de herramientas demográficas para medir la heterogeneidad en una población (@Vaupel_Missov_2013; @vanRaalte_Sasson_Martikainen_2018). En este sentido, solo considerando la información de la tabla de vida, podría haber múltiples capas de análisis de desigualdad teniendo en cuenta distintos niveles espaciales.
-
-
-
-Se propone la siguiente línea de desarrollo. Se realiza un análisis inicial de calidad de datos, se repasan tres metodologías de suavizamiento, redefiniendo a su vez áreas mayores por fuera de lo estrictamente administrativo, se construyen tablas de mortalidad y se selecciona un método con el cual dar una primera aproximación al problema. En el medio se encuentraron inconvenientes con la información, los cuales se trataron de destacar y dar soluciones^[El material complementario, código y resultados se pueden encontrar en https://github.com/nsacco/mortalidad_Argentina.].
-
-## 
-
-
-
-
 ## **Data**
 
 Death micro data for register years 2009, 2010 and 2011 was requested to the Department of Health Statistics and Information (DEIS, acronym in Spanish) of the Ministry of Health of the Nation. The late registration in all the country was about `r Prom_tardias`%, and the usual thought of compensation is not uniform between years and small areas, so we decided to process the database and take the registers by occurrence year (\ref{tab:def_tardias}). The percentage of unknown age was `r round(DescEdad,2)`% and unknown sex `r round(DescSexo,2)`%. The unknown department information by province is ranked in \ref{tab:SinDEP}, being `r SinDEP[1,1]` the province in worst position. This `r pUnkDepCABA`% is due to deaths that occurred in adjacent or very close departments to CABA, in the Great Buenos Aires (agglomerate in Buenos Aires province that is CABA's neighbor): Tres de Febrero (`r UnkDepCABA[1]`%), Vicente Lopez (`r UnkDepCABA[2]`%), La Matanza (`r UnkDepCABA[3]`%), Avellaneda (`r UnkDepCABA[4]`%), Lanús (`r UnkDepCABA[5]`%), Morón (`r UnkDepCABA[6]`%), San Isidro (`r UnkDepCABA[7]`%) y Gral. San Martín (`r UnkDepCABA[8]`%) ^[@Camisa_2019 noted this bias a lot of years ago: 10% of births and deaths during the period 1946-1948.]. Also because of the change in the definition of the administrative units in CABA, starting in 2011 in the data base, is not possible to match the three risk years; because of both reasons was decided leaving out of this first estimation. 
@@ -138,9 +55,8 @@ The unknown data within small areas  is an important issue (\ref{tab:UnkSexAge})
 For the exposure population for each department was used the estimated population by INDEC at middle year in 2010, and applied the census structure (@INDEC2015). Then, instead of simple averaging the three death years, was taken in account the year-person lived in the three year time window between 2009 and 2011 and the estimation date (@Gonzaga_Schmertmann_2016). This procedure allowed, first to smooth a bit the age-heaping, that could be a greater bias for rate comparison when the deaths count doesn't follow this pattern by age; and second taking in advantage of the omission corrections made by INDEC ^[It's not clear the methodology applied for the adjusted population at middle year on departments, and if takes in account a "residence" correction (@INDEC2015)]. For that was assume a uniform distribution of birth date within a year and closed population. A unique survival function was used for all the districts, applying the same standard life tables than the authors (a representative mean of the Human Mortality Database in posterior years to 1969) but weighted by a male ratio of 1.04 at birth to get both sex. A similar smooth, but with less demographic interpretation, can be achieved with local regression on 3 times the population count (@James2014) (see \ref{fig:AdjExp}). 
 
 ```{r AdjExp, echo = F, fig.align='center', out.width="70%", fig.cap="Exposure Adjustment 2008-2010. Four cases. Source: own based in Census"}
-include_graphics('plots/AdjExp.pdf')
+include_graphics('analysis/plots/AdjExp.pdf')
 ```
-
 
 ## **Some consistency cheks**
 
@@ -151,7 +67,7 @@ With the aim to visualize possible problems of quality data in departments, two 
 First, we calculated the $P/F$ method for indirect estimation of infant mortality and mapped against $q_0$ from the raw data obtained in the last section (@Moultrie). This is not an accurate method for small populations, but can give an idea about problems in biggest areas (numerator or denominator rates). We show the unweighted and weighted points to give more importance to consistency in populated areas, who was responsible for the smoothness bias in the methodological procedures described in next section. Using the mean age at birth for each province and the Latin America family of UN tables for the estimation, looking infant mortality points there is no obvious bias in the biggest areas, and no reason for exclude them (\ref{fig:PF}). 
 
 ```{r PF, echo = F, fig.align='center', out.width="70%", fig.cap="Indirect estimates and raw infant mortality. Departments in selected provinces. Source: own based in Census and DEIS"}
-include_graphics('plots/ChekPF.pdf')
+include_graphics('analysis/plots/ChekPF.pdf')
 ```
 
 Second, was mapped each department against the census poverty indicator Unsatisfied Basic Needs (NBI in Spanish, that will be introduced after), looking for some expected relationship (@Kaztman1995, @Preston_1975; @Grushka2013). In \ref{fig:NBI} are showed the NBI3 and NBI4, which measures the percentaje of school absence of children and substense incapacity in housing units (@Kaztman1995).
@@ -159,16 +75,14 @@ In color is highlighted the biggest department in the Pampean Region, called La 
 This correction is already advised in the INDEC warning of department population counts in 2010 Census, where Buenos Aires is one of the provinces with coverage issues ^[(https://www.indec.gob.ar/nivel4_default.asp?id_tema_1=2&id_tema_2=24&id_tema_3=119, visited on 25/2/19].
 
 ```{r NBI, echo = F, fig.align='center', out.width="70%", fig.cap="Standarized mortality rate and NBI. Departments in selected provinces. Source: own based in Census and DEIS"}
-include_graphics('plots/ChekNBI.pdf')
+include_graphics('analysis/plots/ChekNBI.pdf')
 ```
 
 An additional check was calculate the $e_0$ for each province using the inputs described before and the INDEC estimation (@INDEC2013). The results are a relative difference (%) of `r paste0(Dif_e0_INDEC[,4], collapse = ", ")` for provinces `r paste0(Dif_e0_INDEC[,1], collapse = ", ")`, considered an acceptable approximation given the one year of distance in temporal reference (\ref{tab:Dif_e0_INDEC}).
 
-
 ## **Methodology**  
 
 Due to the fact that is the first estimation in departments in Argentina (at least that is known by the authors), was decided to apply three techniques: one based in Bayesian theory, the second one based in relational life-table methods but adding statistical smoothing, and third a classical demographic approach that is considered the default method. Before the estimation, a regionalization procedure was done to take advantage of spatial similitude between small areas.
-
 
 ### **Regionalization**  
 
@@ -181,7 +95,7 @@ As inputs for the regionalization procedure we use the shape files available onl
 With this segmentation  was obtained an increase of `r AumHeterogEntreGr`% in the variance between groups and a decrease of `r DismHeterogIntraGr`% in the average variance within each group. The new cluster is more distinct between them, and with less internal relative variance (see \ref{fig:cluster}). We'll use this grouping for the calculations of two of the next three methods applied.
 
 ```{r cluster, echo = F, fig.align='center', out.width="70%", fig.cap="Regionalization of departments. Source: own based in Census and DEIS"}
-include_graphics('plots/cluster.pdf')
+include_graphics('analysis/plots/cluster.pdf')
 ```
 
 ### **Estimation Methods**
@@ -223,7 +137,7 @@ The Empirical Bayesian method is particularly appropriate in cases with "small l
 The estimates were made for five-aged groups in all departments in Pampean Region (except La Matanza and those in CABA). The TOPALS methods was thought and applied before to simple ages, but in this case because of no correction for omission in small areas, it was decided not to increase uncertainty so was applied also in quinquennial ages with knots in ages 0, 5-9, 20-24, 40-44 and 60-64. Four examples are shown in next graph, where the differences between methods starts to appear when the exposures are smaller (see \ref{fig:Ajuste}). 
 
 ```{r Ajuste, echo=F, fig.align='center', out.width="70%", fig.cap="Mortality Estimates of Departments. Different methods. Source: own based in Census and DEIS"}
-include_graphics('plots/Ajuste.pdf')
+include_graphics('analysis/plots/Ajuste.pdf')
 ```
 
 The $e_0$ as the summary measure of mortality is considered to compare, considering also that the effect of problems in adult ages doesn´t affect hardly the estimates on $e_0$ in populations where infant, young and adult mortality still with an important weight ^[In mathematical terms, $\frac{de_0}{d\mu_{80+}}=f(T_{80+})$ are close to zero depending the non-rectangularity of $l_x$ and the correction or change in the rate; in other therms a change in these rates, for example because of bias correction, is weighted by $l_80$: $\frac{de_0}{d\epsilon}=\int_{o}^{\inf}{\frac{d\mu_x}{d\epsilon}e_x l_x dx}$ (@Wrycza2012).] 
@@ -231,13 +145,13 @@ The $e_0$ as the summary measure of mortality is considered to compare, consider
 The correlation between the methods is clear: there is a strong similitude between TOPALS and Indirect estimation (`r #CorrMeth[2,1]`), but not so strong in empirical Bayes against Indirect estimation (`r #CorrMeth[3,1]`), and TOPALS (`r #CorrMeth[2,3]`) (see \ref{fig:comparativeMeth}). 
 
 ```{r comparativeMeth, echo = F, fig.align='center', out.width="70%", fig.cap="Estimates of life expectancy at birth with three methods. Source: own based in Census and DEIS"}
-include_graphics('plots/CompMethods.pdf')
+include_graphics('analysis/plots/CompMethods.pdf')
 ```
 
 The main differences are because the Bayesian method tends to take always some information about the age pattern, and assumes a correlation between them. The departments `r #cat(nombre_problems,sep = ', ')` with biggest differences are all of small populations and few non-zero cells (see \ref{fig:Feos}).
 
 ```{r Feos, echo = F, fig.align='center', out.width="70%", fig.cap="Mortality Estimates of Departments with largest differences between methods. Source: own based in Census and DEIS"}
-include_graphics('plots/AjusteFeos.pdf')
+include_graphics('analysis/plots/AjusteFeos.pdf')
 ```
 
 In the next we'll take the Bayes empirical results because of the conservative scenario in ranking departments ^[A simulation study will be done here to achieve stronger conclusions]. To take randomness in account, bootstrap re-sampling of the death counts following a Poisson distribution was done. This gave us confidence intervals of the life table functions and specifically of life expectancy at birth (see \ref{fig:jerarq} and \ref{tab:table_e0}). 
@@ -248,7 +162,7 @@ In the next we'll take the Bayes empirical results because of the conservative s
 Buenos Aires is the most populous province in Argentina, including `r n_dptos[1]` administrative areas. In the previous graph was shown his great heterogeneity, with an estimated range in life expectancy of approximately 6 years. The province can be divided between the Great Buenos Aires area made of 24 departments, an urban area that rounds CABA, and the rest of the surface. To inspect the meaningful of the results, we can take four jurisdictions with not small exposures and placed along the distribution: San Isidro, Chivilcoy, General Pueyrredón y Moreno (see \ref{fig:dptosBsAs}). 
 
 ```{r dptosBsAs, echo = F, fig.align='center', out.width=c("70%"), fig.cap="Mortality Estimates of four Departments in Buenos Aires. Source: own based in Census and DEIS"}
-include_graphics('plots/dptosBsAs.pdf')
+include_graphics('analysis/plots/dptosBsAs.pdf')
 ```
 
 Moreno had more infant mortality but also a greater adult and oldest risk. A priori, there is no reason to believe in a differential under count of exposures in all the age range 40+, so probably this could be a mortality pattern to consider for policymakers. In the case of San Isidro, which had the higher life expectancy at birth of this group, had the lowest hump in the typical age range of external causes. In other case, Gral. Pueyrredón had the worst position in the age range 5 to 25, ages that pushed up mortality for preventable causes.

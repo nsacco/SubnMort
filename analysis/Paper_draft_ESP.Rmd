@@ -1,5 +1,5 @@
 ---
-title: "Estimación de Mortalidad por departamentos: el caso de la región Pampeana (2009-2011)"
+title: "Mortalidad en áreas pequeñas de la región Pampeana (Argentina, 2009-2011)"
 author: |
   Nicolás Sacco [^ns]; Iván Williams [^iw]; Bernardo L. Queiroz [^bq]
 
@@ -37,9 +37,86 @@ load("analysis/Rmarkdown_variables.RData")
 # rmarkdown::render('Paper_draft_ESP.Rmd', encoding="UTF-8")
 ```
 
-## **Introducción**  
+# **Abstract**
+
+## **Background**
+
+Mientras aumenta la demanada sobre estimaciones epidemiológicas para áreas pequeñas, estudios recientes muestran una persistente brecha de desigualdad en la esperanza de vida al nacer en América Latina. La escasez de datos geoespaciales desafía la aplicación de diferentes métodos para estudiar estos diferenciales de salud. A menudo, los datos en áreas pequeñas o bien no existen o son escasos en la región. Los patrones espaciales son esenciales para comprender los resultados demográficos individuales relacionados con las características de un lugar, también como una herramienta para la aplicación de planes de desarrollo y para la asignación de recursos.
+
+## **Objectives**
+
+La historia de la estimación en áreas pequeñas es escasa en Argentina, un claro ejemplo de un país con pocas fuentes de datos, pero también un caso muy interesante de la transición epidemiológica, que a menudo no se aborda en la literatura previa Basado en la experiencia de nuevas aplicaciones y de acuerdo con la información auxiliar disponible, en este artículo aplicamos tres métodos diferentes para estimar y luego comparar los niveles de mortalidad en áreas pequeñas en la Región Pampeana de Argentina, durante el período 2009-2011.
+
+## **Methods** 
+
+Se calculó la esperanza de vida al nacer en base a un enfoque bayesiano, un método de tabla de vida relacional, suavizando datos espaciales de acuerdo a patrones de áreas mayores vecinas, y en tercer lugar se aplicó un enfoque demográfico indirecto. Las estimaciones se compararon para calcular las tasas de $q_0$ a partir de registros de defunción completos y luego se relacionaron con áreas espaciales, utilizando un análisis de regionalización simple.
+
+## **Results** 
+
+Los resultados muestran el valor potencial del método bayesiano a pequeña escala espacial-espacial. Las tasas estimadas indican que existe una gran variabilidad en la esperanza de vida al nacer y entre regiones, con una extensión de más de 6 años en la Provincia de Buenos Aires. Además, encontramos evidencia sugestiva de que las tasas por edad presentan una mayor mortalidad infantil, pero también un mayor riesgo en los adultos mayores, en las provincias que muestran más heterogeneidad.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## **Introduction**
+
+¿Subsisten las disparidades de mortalidad entre las áreas pequeñas? Investigaciones demográficas previas sobre los diferenciales de mortalidad sostienen que los diferenciales geográficos serían gradualmente descartados durante la transición epidemiológica, las políticas de salud pública y las mejoras en la calidad de vida. En la mayoría de los países de ingresos altos y medios, la esperanza de vida al nacer ($q_0$) aumenta a principios del siglo XX, debido al avance del conocimiento y la tecnología médica para combatir las enfermedades infecciosas y las mejoras en las condiciones de vida asociadas con el desarrollo socioeconómico.
+
+Aunque los diferenciales socioeconómicos de mortalidad contribuyeron a mantener la hipotesis de la desigualdad persistente en la muerte durante y después de la transición epidemiológica, algunos autores esperan que los resultados de salud y las disparidades se extingan a medida que se desarrolla el cambio demográfico. Sin embargo, puntos de vista retrospectivos muestran que los diferenciales de mortalidad son persistentes y han crecido con el tiempo en muchos casos de acuerdo a la condición socioeconómica. De todos modos, es útil tener en cuenta si estas disparidades continúan y/o surgen independientemente de  escenarios iniciales auspiciosos.
+
+La explicación teórica más persuasiva de estos temas argumenta que la relación entre mortalidad y posición socioeconómica se ha mantenido a lo largo del tiempo debido al acceso diferencial de clase social a la tecnología de la información y a la salud. Esta hipótesis de causa-efecto condujo a importantes desarrollos de investigación y contribuciones teóricas. Sin embargo, identificar las relaciones basadas en estos patrones y sus resultados demográficos presenta un serio desafío en países donde hay pocas fuentes de datos disponibles. La investigación de la mortalidad implica intrincadas patuas de interacciones sociales, demográficas y ambientales. Por esa razón, la demografía espacial surgió como una perspectiva significativa para responder preguntas demográficas (Matthews, 2013). En ese sentido, los patrones espaciales son esenciales para comprender los resultados demográficos individuales relacionados con las características de un lugar.
+
+Sobre estas cuestiones, aportes metodológicas recientes se han desarrollado para estimaciones de mortalidad en áreas pequeñas. ***Mas sobre aportes recientes para estimacion de mortalidad en areas menores en el mundo.***.
+
+En América Latina y el Caribe, la demanda de estimaciones epidemiológicas (y de mortalidad, específicamente) de la heterogeneidad subnacional está creciendo, tanto como una herramienta para la aplicación de diferentes planes de desarrollo como para la asignación de recursos. La experiencia en América Latina está liderada por Brasil, donde ya existe un desarrollo metodológico sostenido @FreireEtAl2015. En Argentina, se encontraron experiencias sobre estimaciones de la tendencia de mortalidad infantil (@torcida2008) y las comunas de la Ciudad Autónoma de Buenos Aires (@Grushka2013). Al mismo tiempo, otros estudios se centran en el desarrollo de herramientas demográficas para medir la heterogeneidad individual en una población (@Vaupel_Missov_2013; @vanRaalte_Sasson_Martikainen_2018). En este sentido, solo considerando la información de la tabla de vida, podría haber múltiples capas de análisis de desigualdad simplemente agrupando por niveles administrativos.
+
+Argentina representa un claro ejemplo de un país con pocas fuentes de datos, pero también un caso muy interesante de la transición de la mortalidad, que a menudo no se aborda en la literatura previa. Por estas razones, el objetivo de este artículo fue el de elaborar estimaciones de mortalidad que ejemplifiquen la relación entre el condición socioeconómica y salud. Para ello aplicamos tres métodos diferentes para estimar y luego comparar los niveles de mortalidad en áreas pequeñas en la Región Pampeana Argentina, durante el período 2009-2011. Para probar cómo funcionan los métodos elegidos, discriminamos este espacio geográfico ya que es la región más poblada del país.
+
+Debido a la poca experiencia de estudios previos que estimen mortalidad *general* en áreas menores en Argentina, se decidió aplicar tres técnicas: una basada en la teoría bayesiana, la segunda basada en métodos relacionales de tablas de vida pero agregando técnicas estadísticas de suavizado, y tercero, un enfoque demográfico clásico, considerado el método por default debido a su simplicidad. Antes de la estimación, se realizó un procedimiento de regionalización para aprovechar la similitud espacial entre áreas pequeñas, independientemente de su pertenencia político-administrativa.
+
+Utilizamos los datos administrativos del registro de defunciones del Departamento de Estadísticas e Información de Salud del Ministerio de Salud de la Nación (DEIS), unidad oficial del gobierno a cargo de la administración de conteos de defunciones, y las estimaciones de población elaboradas por el Instituto Nacional de Estadísticas y censo (INDEC) agencia gubernamental argentina responsable de la recopilación y el procesamiento de datos estadísticos, como los censos de población. Usando tres enfoques diferentes, primero aplicamos Métodos de Distribución de Muerte (DDM, por su sigla en inglés). Luego combinamos DDM con un enfoque empírico bayesiano, método ya aplicado para el caso de Brasil. El procedimiento de dos pasos nos permite corregir la falta de registro de los recuentos de muertes y minimizar las fluctuaciones aleatorias que pueden ocurrir cuando calculamos los niveles de mortalidad en áreas pequeñas.
+
+# ¿Por qué Argetina?¿Por qué la región Pampeana?
+
+En Argentina, se encontraron experiencias sobre estimaciones de la tendencia de mortalidad infantil (@torcida2008) y las comunas de la Ciudad Autónoma de Buenos Aires (@Grushka2013). Al mismo tiempo, otros estudios se centraron en el desarrollo de herramientas demográficas para medir la heterogeneidad de mortalidad en una población (@Vaupel_Missov_2013; @vanRaalte_Sasson_Martikainen_2018). En este sentido, solo considerando la información de la tabla de vida, podría haber múltiples capas de análisis de desigualdad teniendo en cuenta distintos niveles espaciales.
+
+Este trabajo como fin tiene estimar el nivel de mortalidad para áreas menores de Argentina, en este caso, de departamentos  durante el período 2009-2011. Con el criterio de comenzar con la población con mayor participación en total país se seleccionó la región pampeana. 
+
+Se propone la siguiente línea de desarrollo. Se realiza un análisis inicial de calidad de datos, se repasan tres metodologías de suavizamiento, redefiniendo a su vez áreas mayores por fuera de lo estrictamente administrativo, se construyen tablas de mortalidad y se selecciona un método con el cual dar una primera aproximación al problema. En el medio se encuentraron inconvenientes con la información, los cuales se trataron de destacar y dar soluciones^[El material complementario, código y resultados se pueden encontrar en https://github.com/nsacco/mortalidad_Argentina.].
+
+Este trabajo como fin tiene estimar el nivel de mortalidad para áreas menores de Argentina, en este caso, de departamentos  durante el período 2009-2011. Con el criterio de comenzar con la población con mayor participación en total país se seleccionó la región pampeana. 
+
+The lack of geospatial data challenge the application of different methods to study health differentials. Often data in small areas are non-existent or sparce in this region. Spatial patterns are essential to understand individual demographic outcomes related with the characteristics of a place, also as a tool for the application of development plans and for the allocation of resources.
+
+En América Latina y el Caribe, la demanda de estimaciones epidemiológicas (y de mortalidad, específicamente) sobre heterogeneidad a nivel subnacional está creciendo, tanto como una herramienta para la aplicación de diferentes planes de desarrollo como para la asignación de recursos. La pregunta es siempre: ¿qué esconden los promedios regionales? 
+
+El problema principal es el de tratar con fenómenos con un pequeño número de experimentos, y en muchos casos desconocida cobertura. La experiencia en América Latina está liderada por Brasil, donde ya existe un desarrollo metodológico de avance sostenido (@FreireEtAl2015). 
+
+<!-- Algo de mortalidad general de Arg y necesidad de ver lo subnacional--> 
+
+En América Latina y el Caribe, la demanda de estimaciones epidemiológicas (y de mortalidad, específicamente) sobre heterogeneidad a nivel subnacional está creciendo, tanto como una herramienta para la aplicación de diferentes planes de desarrollo como para la asignación de recursos. La pregunta es siempre: ¿qué esconden los promedios regionales? 
+
+The objective of this work can be enunciated following these progressive steps:  
+	+ Estimate the level of mortality of the departments during the period 2009-2011. With the criteria of starting with the population with bigger share to explore methodological approaches, the Pampean region was selected.  
+	+ Estimate the heterogeneity between and within departments.  
+	+ Test the hypothesis of the negative relationship between internal heterogeneity and the level of mortality at the province level.  
+
+In this first work, the step 1 is done ^[All the supplemental material, code and results can be found in https://github.com/nsacco/mortalidad_Argentina. It´s work in progress]. 
 
 
+El problema principal es el de tratar con fenómenos con un pequeño número de experimentos, y en muchos casos desconocida cobertura. La experiencia en América Latina está liderada por Brasil, donde ya existe un desarrollo metodológico de avance sostenido (@FreireEtAl2015). 
+
+<!-- Algo de mortalidad general de Arg y necesidad de ver lo subnacional--> 
+
+
+In comparison with other Latin American countries, Argentina’s early socio-economic development, high degree of urbanization, and the expansion of formal education all influenced the reduction of mortality taking place earlier than in most other countries of the region.
+This took place due to improvements in living conditions associated with socioeconomic development, rather than the advancement of knowledge and medical technology to fight infectious diseases. Although it took place more quickly and began from higher levels, the drop in mortality in Argentina can, in that sense, be likened to the pattern followed by developed countries with greater distance then from most of the rest of Latin America (Lattes, 1975; Grushka, 2014, p. 169) .
+
+
+En Argentina, se encontraron experiencias sobre estimaciones de la tendencia de mortalidad infantil (@torcida2008) y las comunas de la Ciudad Autónoma de Buenos Aires (@Grushka2013). Al mismo tiempo, otros estudios se centran en el desarrollo de herramientas demográficas para medir la heterogeneidad en una población (@Vaupel_Missov_2013; @vanRaalte_Sasson_Martikainen_2018). En este sentido, solo considerando la información de la tabla de vida, podría haber múltiples capas de análisis de desigualdad teniendo en cuenta distintos niveles espaciales.
+
+
+
+Se propone la siguiente línea de desarrollo. Se realiza un análisis inicial de calidad de datos, se repasan tres metodologías de suavizamiento, redefiniendo a su vez áreas mayores por fuera de lo estrictamente administrativo, se construyen tablas de mortalidad y se selecciona un método con el cual dar una primera aproximación al problema. En el medio se encuentraron inconvenientes con la información, los cuales se trataron de destacar y dar soluciones^[El material complementario, código y resultados se pueden encontrar en https://github.com/nsacco/mortalidad_Argentina.].
 
 ## **Datos**
 
@@ -47,11 +124,15 @@ Se solicitaron microdatos de defunción para los años de registro 2009, 2010 y 
 
 Los datos desconocidos en áreas pequeñas son un problema importante (\ref{tab:UnkSexAge}). Teniendo en cuenta solo las provincias pampeanas, Buenos Aires poseía los departamentos con el mayor porcentaje de edad y sexo desconocidos, con valores más grandes en sexo, siendo el líder el departamento `r UnkSexAge[1,5]` con `r UnkSexAge[1,6]`%. Debido a esto, adicionalmente no trataremos la desagregación por sexo. Las categorías desconocidas (en variables edad, provincia de residencia y departamento de residencia) se distribuyeron proporcionalmente debido a su peso menor.
 
+
+
 Para la población expuesta al riesgo de cada departamento se utilizó la población estimada por el INDEC a mediados de año en 2010, y se aplicó la estructura observada en el censo 2010 (@INDEC2015). Luego, en lugar de promediar los tres años de riesgo, se tuvo en cuenta los años-persona en que las personas hubiesen vivido en el período de tres años entre 2009 y 2011 y la fecha censal (@Gonzaga_Schmertmann_2016). Este procedimiento permitió, primero, suavizar un poco la mala declaración de edad, que podría aportar un mayor sesgo para la comparación de tasas cuando el recuento de muertes no sigue este patrón por edad; y segundo aprovechar las correcciones de omisión hechas por INDEC en el total^[No está claro la metodología aplicada para la población ajustada a mitad de año en los departamentos, y si tiene en cuenta una corrección de "residencia" (@INDEC2015)]. Para eso se supone una distribución uniforme de la fecha de nacimiento dentro del año y que la población sea cerrada. Se utilizó una función de supervivencia única para todos los distritos, aplicando las mismas tablas de vida estándar que los autores (una media representativa de la Base de Datos de Human Mortality Database en años posteriores a 1969) pero en nuestro caso ponderada por un índice de masculinidad de 1.04 al nacer, para obtener ambos sexos. Se puede lograr una suavización similar, pero con menos interpretación demográfica, con una regresión local (procedimiento *loess* en el software R) de 3 veces el recuento censal de población (@James2014) (ver \ref{fig:AdjExp}).
 
 ```{r AdjExp, echo = F, fig.align='center', out.width="70%", fig.show='hold', fig.cap="Ajuste de exposición 2008-2010. Cuatro casos. Fuente: elaboración propia en base a INDEC (2013)"}
-include_graphics('plots/AdjExp.pdf')
+include_graphics('\analysis/plots/AdjExp.pdf')
 ```
+
+<!-- 
 
 ##**Algunos chequeos de consistencia**
 
@@ -62,13 +143,13 @@ Con el objetivo de visualizar posibles problemas de datos de calidad en los depa
 Primero, se utilizó el método de Brass y Coale para la estimación indirecta de la mortalidad infantil y se mapeó con $q_0$ a partir de los datos brutos obtenidos en la última sección (@Moultrie). Este no es un método preciso para poblaciones pequeñas, pero puede dar una idea sobre los problemas en las áreas más grandes (problemas relativos al numerador o denominador). Mostramos los puntos no ponderados y ponderados poblacionalmente para dar mayor importancia a la consistencia en las áreas más pobladas, responsables del posible sesgo de suavizamiento en los procedimientos metodológicos descritos en la siguiente sección (Figura \ref{fig:PF}). Utilizando la edad promedio de la madre al nacimiento durante 2010 para cada provincia y la familia de tablas de la ONU de América Latina, se concluye que observando los puntos de mortalidad infantil no hay un sesgo claro en las áreas más grandes.
 
 ```{r PF, echo = F, fig.align='center', out.width="70%", fig.cap="Estimaciones indirectas de q(0) y tasa de mortalidad m(0) observada. Departamentos de la región Pampeana (excepto CABA). Fuente: elaboración propia en base a Cesno y estadísticas vitales."}
-include_graphics('plots/ChekPF.pdf')
+include_graphics('analysis/plots/ChekPF.pdf')
 ```
 
 En segundo lugar, se mapeó cada departamento respecto al indicador censal de pobreza Necesidades Básicas Insatisfechas (NBI) y la tasa de mortalidad general estadarizada a partir de la estructura por edad regional, buscando una relación esperada (@Kaztman1995, @Preston_1975; @Grushka2013). En la figura \ref{fig:NBI} se muestran el NBI3 y el NBI4, que miden el porcentaje de hogares con ausencia escolar de niños y la incapacidad de subsistencia (@Kaztman1995). En color se destaca el departamento más grande de la Región Pampeana, llamado La Matanza (que contiene al `r round(LAMArep,1)`% de la provincia de Buenos Aires). El departamento de La Matanza tiene una de las tasas de mortalidad estandarizadas más bajas, pero un índice de pobreza similar (NBI3) o mayor (NBI4) al de otros. Si bien su desempeño en los índices de pobreza NBI1 (vivienda inconveniente), NBI2 (carencias sanitarias) y NBI3 (hacinamiento) no es tan llamativo como los señalados, se decidió dejarlo fuera de este estudio debido principalmente a cuestiones metodológicas, ya que las áreas más grandes son de extrema relevancia a la hora de suavizar las pequeñas y esto podría sesgar los resultados ^[INDEC advierte en su web sobre los recuentos de población por departamento en el Censo 2010, donde al parecer Buenos Aires fue una de las provincias con dificultades (https://bit.ly/2R7svfX, visitado el 10/1/2020)].
 
 ```{r NBI, echo = F, fig.align='center', out.width="70%", fig.cap="Standarized mortality rate and NBI. Departments in selected provinces. Source: own based in Census and DEIS"}
-include_graphics('plots/ChekNBI.pdf')
+include_graphics('analysis/plots/ChekNBI.pdf')
 ```
 
 Se realizó un chequeo adicional de $e_0$ para cada provincia a partir de los insumos anteriores y la estimación oficial (@INDEC2013)^[Desde aquí se considera a Buenos Aires sin La Matanza)]. Los resultados dan una diferencia relativa (%) de 0,002, `r paste0(Dif_e0_INDEC[-1,4], collapse =", ")` para las provincias Buenos Aires, Córdoba, Entre Ríos, La Pampa, Santa Fé, considerado como aceptable la aproximación dado el año de distancia en la referencia temporal y que en este ejercicio no se realizan ajustes de cobertura en la defunciones que pudieron haber sido realizados en las oficiales (tabla \ref{tab:Dif_e0_INDEC}).
@@ -88,7 +169,7 @@ Como insumos para el procedimiento de regionalización, utilizamos los archivos 
 Con esta segmentación se obtuvo un aumento de `r AumHeterogEntreGr`% en la varianza entre grupos y una disminución no tan importante de `r DismHeterogIntraGr`% en la varianza promedio dentro los grupo. El nuevo clúster es más distinto entre sus partes y con menos algo menos de variación relativa interna (ver \ref{fig:cluster}). 
 
 ```{r cluster, echo = F, fig.align='center', out.width="70%", fig.cap="Regionalización de departamentos. Source: Elaboración propia en base a Censo y Estadísticas Vitales"}
-include_graphics('plots/cluster.pdf')
+include_graphics('analysis/plots/cluster.pdf')
 ```
 
 ### **Métodos de estimación**
@@ -131,7 +212,7 @@ Finalmente, como método básico, se aplicará el método de estandarización in
 Las estimaciones se hicieron para grupos quinquenales de edad (excepto el primer grupo, separado en 0 y 1-4) con 90 y más como grupo abierto final, en todos los departamentos de la Región Pampeana (excepto La Matanza y aquellos en CABA, por motivos ya expuestos). El método TOPALS fue pensado para aplicar en edades simples, pero en este caso, debido a que no se corrigió la omisión en áreas pequeñas y para ser comparable con los demás métodos, se aplicó a edades quinquenales tomando nodos en los grupos 0, 5-9, 20-24, 40-44 y 60-64. Se muestran cuatro ejemplos de ajsute en el siguiente gráfico (ver \ref{fig:Ajuste}).
 
 ```{r Ajuste, echo=F, fig.align='center', out.width="70%", fig.cap="Mortality Estimates of Departments. Different methods. Source: own based in Census and DEIS"}
-include_graphics('plots/Ajuste.pdf')
+include_graphics('analysis/plots/Ajuste.pdf')
 ```
 
 Se considera $e_0$ como la medida resumen de la mortalidad con motivos de comparación de nivel, considerando también que el efecto de los problemas en la edad adulta (de mayor incertidumbre en áreas pequeñas) tienen poco efecto en las estimaciones sobre $e_0$ en poblaciones donde la mortalidad infantil y juvenil aún tienen un peso importante en el indicador ^[En términos matemáticos, $\frac{de_0} {d \ mu_ {80 +}} = f (T_ {80 +})$ están cerca de cero dependiendo de la no rectangularidad de $l_x$ y la corrección o cambio en la tasa. En otros términos, un cambio en estas tasas, por ejemplo debido a la corrección de sesgo, se pondera con $l_{80}$:$\frac{de_0} {d \epsilon} = \int_{o}^{\inf}{\frac{d\mu_x} {d \epsilon} e_x l_x dx}$ (@Wrycza2012).].
@@ -139,34 +220,34 @@ Se considera $e_0$ como la medida resumen de la mortalidad con motivos de compar
 La correlación entre los métodos es clara: existe una gran similitud entre TOPALS y la estimación indirecta (`r round(CorrMeth[2,3],2)`), pero menor en Bayes Empírico contra la estimación indirecta (`r round(CorrMeth[2,1])`) y TOPALS (`r round(CorrMeth[3,1])`) (figura \ref{fig:comparativeMeth}).
 
 ```{r comparativeMeth, echo = F, fig.align='center', out.width="70%", fig.cap="Estimaciones de esperanza de vida al nacer según tres metodologías. Source: elaboración propia"}
-include_graphics('plots/CompMethods.pdf')
+include_graphics('analysis/plots/CompMethods.pdf')
 ```
 
 Las principales diferencias se deben a que el método bayesiano tiende a tomar *siempre* alguna información sobre el patrón de edad, suponiendo una correlación entre edades contiguas dado el comportamiento global del área mayor. En los dos restantes métodos, el patrón stándard es de mayor fuerza gravitatoria. Los departamentos `r cat(nombre_problems, sep = ',')` donde se reportan las mayores diferencias son aquellos con pocas celdas distintas de cero (ver \ref{fig:Feos}).
 
 ```{r Feos, echo = F, fig.align='center', out.width="70%", fig.cap="Estimaciones de mortalidad de los departamentos con mayores diferencias entre métodos. Fuente: elaboración porpia"}
-include_graphics('plots/AjusteFeos.pdf')
+include_graphics('analysis/plots/AjusteFeos.pdf')
 ```
 
 Por otro lado, se siguió el procedimiento empleado por @Gonzaga_Schmertmann_2016, relacionando las defunciones del área mayor con las obtenidas mediante la agregación de las estimaciones para las áreas menores (\ref{fig:consistAM}). Si bien los promedios son `r cat(as.numeric(prom),sep = ",")` para los métodos Indirecto, Bayesiano y Topals, se destaca un poco más de variabilidad en el segundo y tercero, y un patrón singular en el primero que sugiere un sesgo específico. 
 
 ```{r consistAM, echo = F, fig.align='center', fig.height=6, out.width="70%", fig.show='hold', fig.cap="Diferencias relativas en la cantidad de defunciones por edad del área mayor. Fuente: elaboración porpia"}
-include_graphics(path = 'plots/ConsistAM.pdf')
+include_graphics(path = 'analysis/plots/ConsistAM.pdf')
 ```
 
 En el siguiente gráfico se consideraron los resultados del método de Bayes Empírico debido a presentar un escenario más conservador en el rango de estimaciones (futuras líneas de investigación deberían utilizar técncias de simulación para llegar a conclusiones más sólidas, como se menciona al final del trabajo). Para tener en cuenta la aleatoriedad, se realizó un proceso bootstrap de los recuentos de muertes a partir de una distribución de Poisson del conteo de defunciones en cada grupo etario. Esto permitió contar percentiles de las funciones de la tabla de vida y específicamente de la esperanza de vida al nacer (ver \ref{fig:jerarq} y \ref{tab:table_e0}, donde se muestran las estimaciones en el intervalo 95%).
 
 ```{r jerarq, echo = F, fig.align='center', fig.height=6, out.width=c("48%","48%"), fig.show='hold', fig.cap="Esperanza de vida al nacer para las provincias pampeanas (excepto CABA, y Buenos Aires sin La Matanza). Ordenado según la media y con intervalos de confianza. El tamaño de los nombres sigue al tamaño relativo de la población en esa provincia. Fuente: elaboración propia"}
-include_graphics(path = c('plots/Buenos_Aires.pdf',
-													'plots/Córdoba.pdf',
-								 					'plots/Entre_Ríos.pdf',
-													'plots/Santa_Fe.pdf',
-													'plots/La_Pampa.pdf'))
+include_graphics(path = c('analysis/plots/Buenos_Aires.pdf',
+													'analysis/plots/Córdoba.pdf',
+								 					'analysis/plots/Entre_Ríos.pdf',
+													'analysis/plots/Santa_Fe.pdf',
+													'analysis/plots/La_Pampa.pdf'))
 ```
 
 <!-- Algo de análisis descriptivo--> 
 
-
+<!-- 
 ```{r dispersion, echo = F, results='asis', error=F, warning=F}
 kable(cbind(provs = provs_names, ineq_df[,-c(1,5)]), digits = 1, caption = 'Resumen de estimaciones por provincia. Esperanza de vida al nacer',
       col.names = c("Provincia", 'Promedio', 'n', 'Varianza', 'Rango')) %>% #'$Ls(IC95)$',
@@ -178,13 +259,13 @@ kable(cbind(provs = provs_names, ineq_df[,-c(1,5)]), digits = 1, caption = 'Resu
 Buenos Aires posee mayor cantidad de departamentos y a la vez una mayor dispersión, medida por el rango (distancia entre máximo y mínimo) y la varianza de los promedios (no ponderada). Conocida es su particular división entre los partidos del Gran Buenos Aires, que forman parte del aglomerado urbano más grande del país con la Ciudad Autónoma de Buenos Aires, y el resto de la provincia.
 
 <!-- Ampliar un poco--> 
-
+<!-- 
 ###**Un análisis particular: Buenos Aires**
 
 ¿Qué nos permiten decir las estimaciones? Buenos Aires es la provincia más poblada de Argentina, conteniendo `r n_dptos[1]` áreas administrativas. En el gráfico anterior se mostró su gran heterogeneidad, con un rango estimado de esperanza de vida al ncaer de más de 6 años. La provincia se puede dividir entre el área del Gran Buenos Aires compuesta por 24 departamentos (área urbana que rodea a CABA) y el resto de la superficie. Para inspeccionar el significado de los resultados, podemos tomar tres jurisdicciones con exposición significativa y ubicadas a lo largo de la distribución: San Isidro, General Pueyrredón y Moreno (ver figura \ref{fig:dptosBsAs}).
 
 ```{r dptosBsAs, echo = F, fig.align='center', fig.height=6, out.width=c("48%","48%"), fig.show='hold', fig.cap="Mortality rates for selected areas in Buenos Aires. Source: own based in Census and DEIS"}
-include_graphics("plots/SanIsyMoreno.pdf")
+include_graphics("analysis/plots/SanIsyMoreno.pdf")
 ```
 
 Si comparamos la mediana de las tasas por edad, Moreno pareció presentar una mayor mortalidad infantil pero también un mayor riesgo en adultos mayores. A priori, no hay ninguna razón para creer en una exposición con omisión diferencial en mayores de 40 años de edad, por lo que probablemente este sea un patrón de mortalidad a tener en cuenta. En el caso de San Isidro, con la mayor esperanza de vida al nacer de este grupo, presentó la curva más baja en el rango de edad típico de causas externas. Finalmente, Gral. Pueyrredón tuvo la peor posición en el rango de edad de 5 a 25 años, edades con un porcentaje importante de mortalidad por causas prevenibles. En términos estadísticos, dado el modelo empleado, los rangos de edad donde se pueden ensayar comparaciones jerárquicas entre las tres jurisdicciones tomadas son aquellos donde lás áreas no se solapan: infantil y adulta mayor a 45, y 15-24 entre San Isidro y Gral. Pueyrredón.
@@ -244,5 +325,5 @@ kable(table_e0, digits = 2, caption='Life expectancy at birth estimates. Cordoba
 
 
 
-
+-->
 
