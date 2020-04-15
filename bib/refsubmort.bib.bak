@@ -612,7 +612,7 @@
   url       = {http://www.jstor.org/stable/2240635},
 }
 
-@article{Torcida2008,
+@article{torcida2008,
   title={An{\'a}lisis de la Evoluci{\'o}n de la Tasa de Mortalidad Infantil en los Departamentos de Argentina. 1994-20},
   author={Torcida, Sebasti{\'a}n and Vega, Andrea L and Vel{\'a}zquez, Guillermo A},
   year={2008}
@@ -895,7 +895,7 @@ publisher = {Centro Latinoamericano de Demografía}
 	journal = {Comparative Population Studies}
 }
 
-@Book{Otero2012,
+@Book{,
   title     = {Historia de la provincia de Buenos Aires. Población, ambiente y territorio, Buenos Aires,},
   publisher = {UNIPE-Edhasa,},
   year      = {2012},
