@@ -540,17 +540,17 @@ casos. Esa es la razón para establecer umbrales mínimos de población o
 departamentos el elegido en este caso.
 
 Como insumos para el procedimiento de regionalización, utilizamos los
-archivos \emph{shape} disponibles en línea y el índice de NBI del censo,
-ambos por departamento\footnote{\url{https://bit.ly/2sVpK9u}, visitado
-  el 10/01/2020.}. Se re-escaló el índice a unidades de desviación
-estándar y aplicó la metodología comentada anteriormente, implementada
-en el paquete \emph{spdep}, mediante la función \emph{skater} (Bivand
-\protect\hyperlink{ref-Bivand2019}{2019}).
+archivos \emph{shape} del INDEC disponibles en línea y el índice de NBI
+del censo, ambos por departamento\footnote{\url{https://bit.ly/2sVpK9u},
+  visitado el 10/01/2020.}. Se re-escaló el índice a unidades de
+desviación estándar y aplicó la metodología comentada anteriormente,
+implementada en el paquete \emph{spdep}, mediante la función
+\emph{skater} (Bivand \protect\hyperlink{ref-Bivand2019}{2019}).
 
 Con esta segmentación se obtuvo un aumento de 14\% en la varianza entre
 grupos y una disminución no tan importante de 1\% en la varianza
 promedio dentro los grupo. El nuevo clúster resultó distinto entre sus
-partes y algo menos de variación relativa interna (ver
+partes y algo menos de variación relativa interna (ver Figura
 \ref{fig:cluster}).
 
 \begin{figure}
@@ -568,7 +568,7 @@ estimación}\label{muxe9todos-de-estimaciuxf3n}}
 
 Aunque Argentina generalmente se clasifica como un país con buenas
 estadísticas registrales de muerte (Jaspers and Orellana
-\protect\hyperlink{ref-JaspersOrellana1994}{1994}; LUY
+\protect\hyperlink{ref-JaspersOrellana1994}{1994}; Luy
 \protect\hyperlink{ref-Luy2010}{2010}), se conoce que hay un porcentaje
 desigual de muertes infantiles no registradas por provincia (DEIS
 \protect\hyperlink{ref-DEIS2016}{2016}). En este sentido, dado que la
@@ -584,10 +584,10 @@ mencioando, existen fenómenos con un pequeño número de ``experimentos''
 estimaciones, por lo que requiere un tratamiento especial para reflejar
 el riesgo de mortalidad subyacente (Brillinger
 \protect\hyperlink{ref-Brillinger1986}{1986}). Para lograrlo, utilizamos
-y comparamos (aunque sin conclusiones finales sobre su performance
-comaparada) tres métodos diferentes, los cuales se diferencian en la
-forma en que las áreas menores \emph{toman prestada} información del
-área mayor que las contiene.
+y comparamos (aunque sin conclusiones finales sobre su
+\emph{performance} comaparada) tres métodos diferentes, los cuales se
+diferencian en la forma en que las áreas menores \emph{toman prestada}
+información del área mayor que las contiene.
 
 El método empírico bayesiano mejora la eficiencia estadística de los
 estimadores de las tasas de mortalidad por edad, disminuyendo la
@@ -597,15 +597,15 @@ varianza en los casos de jurisdicciones pequeñas (Efron and Morris
 \protect\hyperlink{ref-Longford2005}{2005}; Assunção et al.
 \protect\hyperlink{ref-Assuncao2005}{2005}). La idea es que, suponiendo
 que las diferentes observaciones de cada área procedan de una
-distribución a priori común, cada estimación se puede mejorar utilizando
-la información de las otras. La distribución a priori corresponde a la
-distribución conjunta del vector de tasas de mortalidad por edad del
-área mayor. Luego, a través del comportamiento observado en cada área
-menor, se produce el ajuste bayesiano de la distribución de mortalidad a
-posteriori. La característica de ``empírico'' radica en que las
-distribuciones de los parámetros del área mayor se estiman también a
-partir de los datos observados, en este caso por el método de los
-momentos.
+distribución a \emph{priori común}, cada estimación se puede mejorar
+utilizando la información de las otras. La distribución \emph{a priori}
+corresponde a la distribución conjunta del vector de tasas de mortalidad
+por edad del área mayor. Luego, a través del comportamiento observado en
+cada área menor, se produce el ajuste bayesiano de la distribución de
+mortalidad \emph{a posteriori}. La característica de ``empírico'' radica
+en que las distribuciones de los parámetros del área mayor se estiman
+también a partir de los datos observados, en este caso por el método de
+los momentos.
 
 En lo que respecta al caso univariable, se consideraron grupos de edad
 de cinco años, ya sea en un área \(i\), bajo el supuesto que la
@@ -631,7 +631,8 @@ Eso está relacionado con la relación jerárquica entre el hiperparámetro
 
 El estimador lineal bayesiano \(\mathring{m}_{x, 4}^{i}\) que minimiza
 el error cuadrático medio de \({m}_{x,4}^{i}\) (e indicadores que son
-funciones lineales de esto) es Robbins {[}@-Robbins1983{]}:
+funciones lineales de esto) es Robbins
+(\protect\hyperlink{ref-Robbins1983}{1983}):
 
 \(\mathring{m}_{x,4}^{i}=\hat{m}_{x, 4}^{i}+S_{x,4}^{i}(\bar{m}_{x,4}^{i}-\hat{m}_{x,4}^{i})\)
 
@@ -674,11 +675,11 @@ fecundidad en Brasil.
 El otro método aplicado se basó en un modelo de mortalidad relacional
 llamado TOPALS (Tool for Projecting Age-Specific rates using Linear
 Splines) (Beer \protect\hyperlink{ref-deBeer2011}{2011}), que utiliza un
-método spline lineal para describir los ratios entre las probabilidades
-de muerte por edad de una población dada y un patrón. Una ventaja contra
-el enfoque logit clásico de Brass es que TOPALS es menos sensible al
-elegir el estándar. Gonzaga and Schmertmann
-(\protect\hyperlink{ref-Gonzaga_Schmertmann_2016}{2016}) incluyó esta
+método \emph{spline lineal} para describir los ratios entre las
+probabilidades de muerte por edad de una población dada y un patrón. Una
+ventaja contra el enfoque logit clásico de Brass es que TOPALS es menos
+sensible al elegir el estándar. Gonzaga and Schmertmann
+(\protect\hyperlink{ref-Gonzaga_Schmertmann_2016}{2016}) incluyeron esta
 idea en una regresión de Poisson en las tasas de mortalidad por edad
 simple, permitiendo intervalos de confianza para los resultados que
 tienen en cuenta la varianza por razones de baja exposición.
@@ -709,13 +710,13 @@ regresión TOPALS, la aplicación es más una técnica de suavización que un
 modelo de variabilidad espacial, por lo que se necesitan menos supuestos
 sobre las relaciones entre áreas.
 
-Finalmente, como método ``standar'', se aplicó el método de
-estandarización indirecta, quizás uno de los primeros enfoques para este
-problema (Arriaga \protect\hyperlink{ref-Arriaga2011}{2011}). Se basa en
-cambiar solo el nivel del área principal para replicar las muertes del
-área menor que se está estimando. Es el caso en el que no se tiene en
-cuenta ninguna información sobre la forma de la mortalidad por edad del
-área menor.
+Finalmente, se aplicó el método de estandarización indirecta, quizás uno
+de los primeros enfoques propuesta para aboradar estos problemas
+(Arriaga \protect\hyperlink{ref-Arriaga2011}{2011}). Se basa en cambiar
+solo el nivel del área principal para replicar las muertes del área
+menor que se está estimando. Es el caso en el que no se tiene en cuenta
+ninguna información sobre la forma de la mortalidad por edad del área
+menor.
 
 \hypertarget{resultados}{%
 \section{Resultados}\label{resultados}}
@@ -727,7 +728,7 @@ Matanza y aquellos en CABA, por motivos ya expuestos). El método TOPALS
 fue pensado para aplicar en edades simples, pero en este caso, debido a
 que no se corrigió la omisión en áreas pequeñas y para ser comparable
 con los demás métodos, se aplicó a edades quinquenales tomando nodos en
-los grupos 0, 5-9, 20-24, 40-44 y 60-64. En la figura \ref{fig:Ajuste}
+los grupos 0, 5-9, 20-24, 40-44 y 60-64. En la Figura \ref{fig:Ajuste}
 se muestran cuatro ejemplos de ajuste.
 
 \begin{figure}
@@ -754,7 +755,7 @@ indicador.\footnote{En términos matemáticos,
 
 La correlación entre los métodos es clara: existe una gran similitud
 entre TOPALS y la estimación indirecta (0.97), pero menor en Bayes
-Empírico contra la estimación indirecta (1) y TOPALS (1) (figura
+Empírico contra la estimación indirecta (1) y TOPALS (1) (Figura
 \ref{fig:comparativeMeth}).
 
 \begin{figure}
@@ -772,7 +773,7 @@ suponiendo una correlación entre edades contiguas dado el comportamiento
 global del área mayor. En los dos restantes métodos, el patrón stándard
 es de mayor fuerza gravitatoria. Los departamentos donde se reportan las
 mayores diferencias son aquellos con pocas celdas distintas de cero (ver
-\ref{fig:Feos}).
+Tabla \ref{fig:Feos}).
 
 \begin{figure}
 
@@ -786,8 +787,8 @@ mayores diferencias son aquellos con pocas celdas distintas de cero (ver
 Por otro lado, se siguió el procedimiento empleado por Gonzaga and
 Schmertmann (\protect\hyperlink{ref-Gonzaga_Schmertmann_2016}{2016}),
 relacionando las defunciones del área mayor con las obtenidas mediante
-la agregación de las estimaciones para las áreas menores
-(\ref{fig:consistAM}). Si bien los promedios son para los métodos
+la agregación de las estimaciones para las áreas menores (Figura
+\ref{fig:consistAM}). Si bien los promedios son para los métodos
 Indirecto, Bayesiano y Topals, se destaca un poco más de variabilidad en
 el segundo y tercero, y un patrón singular en el primero que sugiere un
 sesgo específico.
@@ -801,17 +802,17 @@ sesgo específico.
 \caption{Diferencias relativas en la cantidad de defunciones por edad del área mayor. Fuente: elaboración porpia}\label{fig:consistAM}
 \end{figure}
 
-En el siguiente gráfico se consideraron los resultados del método de
-Bayes Empírico debido a presentar un escenario más conservador en el
+En la Figura \ref{fig:jerarq} se consideraron los resultados del método
+de Bayes Empírico debido a presentar un escenario más conservador en el
 rango de estimaciones (futuras líneas de investigación deberían utilizar
 técncias de simulación para llegar a conclusiones más sólidas, como se
 menciona al final del trabajo). Para tener en cuenta la aleatoriedad, se
 realizó un proceso bootstrap de los recuentos de muertes a partir de una
 distribución de Poisson del conteo de defunciones en cada grupo etario.
 Esto permitió contar percentiles de las funciones de la tabla de vida y
-específicamente de la esperanza de vida al nacer (ver \ref{fig:jerarq} y
-\ref{tab:table_e0}, donde se muestran las estimaciones en el intervalo
-95\%).
+específicamente de la esperanza de vida al nacer (ver Tablas
+\ref{fig:jerarq} y \ref{tab:table_e0}, donde se muestran las
+estimaciones en el intervalo 95\%).
 
 \begin{figure}
 
@@ -858,14 +859,14 @@ Aires}\label{la-provincia-de-buenos-aires}}
 
 ¿Qué nos permiten decir las estimaciones? Buenos Aires es la provincia
 más poblada de Argentina, conteniendo 134 áreas administrativas. En la
-figura previa se mostró su gran heterogeneidad, con un rango estimado de
-esperanza de vida al ncaer de más de 6 años. La provincia se puede
-dividir entre el área del Gran Buenos Aires compuesta por 24
-departamentos (área urbana que rodea a CABA) y el resto de la
+Figura previa \ref{fig:dispersion} se mostró su gran heterogeneidad, con
+un rango estimado de esperanza de vida al ncaer de más de 6 años. La
+provincia se puede dividir entre el área del Gran Buenos Aires compuesta
+por 24 departamentos (área urbana que rodea a CABA) y el resto de la
 superficie. Para inspeccionar el significado de los resultados, en la
-figura \ref{fig:dptosBsAs} describimos tres jurisdicciones con
+Figura \ref{fig:dptosBsAs} describimos tres jurisdicciones con
 exposición significativa y ubicadas a lo largo de la distribución: San
-Isidro, General Pueyrredón y Moreno
+Isidro, General Pueyrredón y Moreno.
 
 \begin{figure}
 
@@ -876,12 +877,12 @@ Isidro, General Pueyrredón y Moreno
 \caption{Tasas de mortalidad según áreas seleccionadas de la Provincia de Buenos Aires. Fuente: elaboración propia}\label{fig:dptosBsAs}
 \end{figure}
 
-Si comparamos la mediana de las tasas por edad, Moreno pareció presentar
-una mayor mortalidad infantil pero también un mayor riesgo en adultos
-mayores. A priori, no hay ninguna razón para creer en una exposición con
-omisión diferencial en mayores de 40 años de edad, por lo que
-probablemente este sea un patrón de mortalidad a tener en cuenta. En el
-caso de San Isidro, con la mayor esperanza de vida al nacer de este
+Si comparamos la mediana de las tasas por edad, Moreno presenta una
+mayor mortalidad infantil pero también un mayor riesgo en adultos
+mayores. \emph{A priori}, no hay ninguna razón para creer en una
+exposición con omisión diferencial en mayores de 40 años de edad, por lo
+que probablemente este sea un patrón de mortalidad a tener en cuenta. En
+el caso de San Isidro, con la mayor esperanza de vida al nacer de este
 grupo, presentó la curva más baja en el rango de edad típico de causas
 externas. Finalmente, Gral. Pueyrredón tuvo la peor posición en el rango
 de edad de 5 a 25 años, edades con un porcentaje importante de
@@ -958,7 +959,7 @@ como metodológico en áreas menores.
 \centering
 \begin{tabular}[t]{l|r}
 \hline
-Province & Unknown \%\\
+Provincia & Desconocido \%\\
 \hline
 Ciudad Autónoma de Buenos Aires & 8.6\\
 \hline
@@ -1008,7 +1009,7 @@ Tucumán & 1.7\\
 \hline
 Tierra del Fuego, Antártida e Islas del Atlántico Sur & 2.5\\
 \hline
-\multicolumn{2}{l}{\textsuperscript{a} Source: elaboración propia}\\
+\multicolumn{2}{l}{\textsuperscript{a} Fuente: elaboración propia}\\
 \end{tabular}
 \end{table}
 
@@ -1040,7 +1041,7 @@ Buenos Aires & Castelli & 1.2 & Buenos Aires & San Miguel & 2.2\\
 \hline
 Buenos Aires & Pellegrini & 1.2 & Buenos Aires & La Plata & 2.1\\
 \hline
-\multicolumn{6}{l}{\textsuperscript{a} Source: elaboración propia}\\
+\multicolumn{6}{l}{\textsuperscript{a} Fuente: elaboración propia}\\
 \end{tabular}
 \end{table}
 
@@ -1050,7 +1051,7 @@ Buenos Aires & Pellegrini & 1.2 & Buenos Aires & La Plata & 2.1\\
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r|r}
 \hline
-\multicolumn{1}{c|}{ } & \multicolumn{6}{c}{Ocurred year} \\
+\multicolumn{1}{c|}{ } & \multicolumn{6}{c}{Año de ocurrencia} \\
 \cline{2-7}
   & 2008 & 2009 & 2010 & 2011 & 2012 & 2013\\
 \hline
@@ -1064,8 +1065,8 @@ Buenos Aires & Pellegrini & 1.2 & Buenos Aires & La Plata & 2.1\\
 \hline
 2013 & 0.00 & 0.00 & 0.00 & 0.00 & 1.29 & 98.71\\
 \hline
-\multicolumn{7}{l}{\textsuperscript{a} The year register is in rows, and ocurred in columns.}\\
-\multicolumn{7}{l}{Source: elaboración propia}\\
+\multicolumn{7}{l}{\textsuperscript{a} El año de registro está en las filas y el de ocurrencia en}\\
+\multicolumn{7}{l}{las columnas. Fuente: elaboración propia}\\
 \end{tabular}
 \end{table}
 
@@ -1075,7 +1076,7 @@ Buenos Aires & Pellegrini & 1.2 & Buenos Aires & La Plata & 2.1\\
 \centering
 \begin{tabular}[t]{l|r|r|r}
 \hline
-Province & Own & INDEC & Realtive Diference\\
+Provincia & Propia & INDEC & Diferencia relativa\\
 \hline
 Buenos Aires & 75.18 & 75.18 & 0.00\\
 \hline
@@ -1087,7 +1088,7 @@ La Pampa & 76.95 & 76.20 & 0.98\\
 \hline
 Santa Fe & 75.36 & 75.10 & 0.34\\
 \hline
-\multicolumn{4}{l}{\textsuperscript{a} Source: elaboración propia}\\
+\multicolumn{4}{l}{\textsuperscript{a} Fuente: elaboración propia}\\
 \end{tabular}
 \end{table}
 
@@ -1151,7 +1152,7 @@ Córdoba & Tulumba & 76.44 & 77.22 & 75.73\\
 \hline
 Córdoba & Unión & 75.94 & 76.43 & 75.48\\
 \hline
-\multicolumn{5}{l}{\textsuperscript{a} Source: elaboración propia}\\
+\multicolumn{5}{l}{\textsuperscript{a} Fuente: elaboración propia}\\
 \end{tabular}
 \end{table}
 
@@ -1314,7 +1315,7 @@ Series A (Statistics in Society)} 162 (2): 227--45.
 \url{https://doi.org/10.1111/1467-985X.00132}.
 
 \leavevmode\hypertarget{ref-Luy2010}{}%
-LUY, Marc. 2010. ``A Classification of the Nature of Mortality Data
+Luy, Marc. 2010. ``A Classification of the Nature of Mortality Data
 Underlying the Estimates for the 2004 and 2006 United Nations World
 Population Prospects.'' \emph{Comparative Population Studies} 35 (2):
 73--100.
@@ -1366,6 +1367,11 @@ Raalte, Alyson A. van, Isaac Sasson, and Pekka Martikainen. 2018. ``The
 Case for Monitoring Life-Span Inequality.'' \emph{Science} 362 (6418).
 American Association for the Advancement of Science: 1002--4.
 \url{https://doi.org/10.1126/science.aau5811}.
+
+\leavevmode\hypertarget{ref-Robbins1983}{}%
+Robbins, Herbert. 1983. ``Some Thoughts on Empirical Bayes Estimation.''
+\emph{The Annals of Statistics} 11 (3). Institute of Mathematical
+Statistics: 713--23. \url{http://www.jstor.org/stable/2240635}.
 
 \leavevmode\hypertarget{ref-SaccoBorges2018}{}%
 Sacco, G., N.; Borges. 2018. ``¿Converge La Fecundidad En Brasil Y

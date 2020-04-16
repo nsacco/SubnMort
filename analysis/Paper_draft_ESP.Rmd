@@ -229,28 +229,28 @@ En la búsqueda de información sobre heterogeneidad intraprovincial en la morta
 ```{r SinDEP, echo = F, results='asis', error=F, warning=F}
 library(kableExtra)
 kable(SinDEP, digits = 2, caption = 'Pronvincias según Departamento desconocido',
-      col.names = c("Province", 'Unknown %')) %>% #'$Ls(IC95)$',
-      add_footnote(c("Source: elaboración propia"))
+      col.names = c("Provincia", 'Desconocido %')) %>% #'$Ls(IC95)$',
+      add_footnote(c("Fuente: elaboración propia"))
 ```
 
 ```{r UnkSexAge, echo = F, results='asis', error=F, warning=F}
 kable(UnkSexAge, digits = 2, caption = 'Departamentos con información desconocida', row.names = F) %>%
-      add_footnote(c("Source: elaboración propia"))
+      add_footnote(c("Fuente: elaboración propia"))
 ```
 
 ```{r def_tardias, echo = F, results='asis', error=F, warning=F}
 kable(def_tardias, caption='Distribución de defunciones registradas y ocurridas') %>%
-      add_footnote(c("The year register is in rows, and ocurred in columns. Source: elaboración propia"))  %>%
-      add_header_above(c(" " = 1, "Ocurred year" = 6))
+      add_footnote(c("El año de registro está en las filas y el de ocurrencia en las columnas. Fuente: elaboración propia"))  %>%
+      add_header_above(c(" " = 1, "Año de ocurrencia" = 6))
 ```
 
 ```{r Dif_e0_INDEC, echo = F, results='asis', error=F, warning=F}
 library(kableExtra)
 kable(Dif_e0_INDEC, digits = 2, caption='Diferencias entre la esperanza de vida calculada con datos no ajustados y estimaciones oficiales',
-      col.names = c('Province', "Own", "INDEC", 'Realtive Diference')) %>%
+      col.names = c('Provincia', "Propia", "INDEC", 'Diferencia relativa')) %>%
       kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
       full_width = F, position = "center")%>%
-      add_footnote(c("Source: elaboración propia"))
+      add_footnote(c("Fuente: elaboración propia"))
 ```
 
 ```{r table_e0, echo = F, results='asis', error=F, warning=F}
@@ -259,7 +259,7 @@ kable(table_e0, digits = 2, caption='Estimación de la esperanza de vida al nace
       col.names = c('Province', "Department", "Mean", 'p97.5', 'p2.5')) %>%
       kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
       full_width = F, position = "center")%>%
-      add_footnote(c("Source: elaboración propia"))
+      add_footnote(c("Fuente: elaboración propia"))
 ```
 
 ## Referencias
