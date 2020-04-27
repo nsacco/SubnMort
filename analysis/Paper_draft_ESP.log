@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.6)  16 APR 2020 17:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.4.6)  16 APR 2020 17:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -881,7 +881,7 @@ ta_Fe.pdf> </Users/nicosacco/GitHub/academicos/research/SubnMort/analysis/plots
 l.943 
        </Users/nicosacco/GitHub/academicos/research/SubnMort/analysis/plots/San
 IsyMoreno.pdf>]
-Overfull \hbox (62.01442pt too wide) in paragraph at lines 1020--1046
+Overfull \hbox (62.01442pt too wide) in paragraph at lines 1023--1049
  [][] 
  []
 
@@ -890,45 +890,45 @@ Overfull \hbox (62.01442pt too wide) in paragraph at lines 1020--1046
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1198 \leavevmode
+l.1197 \leavevmode
                   \hypertarget{ref-Bivand2019}{}%pdfTeX warning (ext4): destina
 tion with the same identifier (name{table.3}) has been already used, duplicate 
 ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1198 \leavevmode
+l.1197 \leavevmode
                   \hypertarget{ref-Bivand2019}{}%] [24pdfTeX warning (ext4): de
 stination with the same identifier (name{table.4}) has been already used, dupli
 cate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1198 \leavevmode
+l.1197 \leavevmode
                   \hypertarget{ref-Bivand2019}{}%pdfTeX warning (ext4): destina
 tion with the same identifier (name{table.5}) has been already used, duplicate 
 ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1198 \leavevmode
+l.1197 \leavevmode
                   \hypertarget{ref-Bivand2019}{}%] [25pdfTeX warning (ext4): de
 stination with the same identifier (name{table.6}) has been already used, dupli
 cate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1198 \leavevmode
+l.1197 \leavevmode
                   \hypertarget{ref-Bivand2019}{}%] [26] [27]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1409.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1408.
 [28]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1409.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1408.
 (./Paper_draft_ESP.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1409.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1409.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1408.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1408.
 
 Package rerunfilecheck Info: File `Paper_draft_ESP.out' has not changed.
-(rerunfilecheck)             Checksum: 3BA407CF7C9DFE77AD006E4DB6E1A87E;2313.
+(rerunfilecheck)             Checksum: 4BBF04480622822F3B06F7EF6B3D84B9;2313.
 
 LaTeX Warning: There were undefined references.
 
@@ -966,7 +966,7 @@ fonts/type1/public/lm/lmri10.pfb></Users/nicosacco/Library/TinyTeX/texmf-dist/f
 onts/type1/public/lm/lmri12.pfb></Users/nicosacco/Library/TinyTeX/texmf-dist/fo
 nts/type1/public/lm/lmsy10.pfb></Users/nicosacco/Library/TinyTeX/texmf-dist/fon
 ts/type1/public/lm/lmsy8.pfb>
-Output written on Paper_draft_ESP.pdf (28 pages, 1998957 bytes).
+Output written on Paper_draft_ESP.pdf (28 pages, 1998954 bytes).
 PDF statistics:
  672 PDF objects out of 1000 (max. 8388607)
  589 compressed objects within 6 object streams

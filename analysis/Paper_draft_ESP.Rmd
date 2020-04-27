@@ -224,6 +224,18 @@ La investigación demográfica, como otras ciencias sociales, está limitada por
 
 En la búsqueda de información sobre heterogeneidad intraprovincial en la mortalidad hay decisiones que tomar en el numerador y denominador de las tasas por edad. Hay un límite en lo que podemos concluir, pero resulta necesario remarcar cuestiones relativas a aquellas áreas en desventaja. Este puede ser un punto de partida para dar prioridades en el diseño de políticas de salud a nivel local y dar pie a futuras investigaciones en el ámbito demográfico argentino que avancen tanto en la calidad de datos como metodológico en áreas menores.
 
+## Referencias
+
+
+
+
+
+
+
+
+
+
+
 ## Anexo
 
 ```{r SinDEP, echo = F, results='asis', error=F, warning=F}
@@ -261,10 +273,3 @@ kable(table_e0, digits = 2, caption='Estimación de la esperanza de vida al nace
       full_width = F, position = "center")%>%
       add_footnote(c("Fuente: elaboración propia"))
 ```
-
-## Referencias
-
-
-
-
-
