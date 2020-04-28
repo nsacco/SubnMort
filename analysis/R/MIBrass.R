@@ -95,26 +95,26 @@ LAMA = which(ChekPF$link==6427)
 ROSA = which(ChekPF$link==82084)
 
 #graf
-pdf('plots/ChekPF.pdf')
+pdf('analysis/plots/ChekPF.pdf')
 par(mfrow=c(1,2), oma = c(2, 2, 2, 2), # two rows of text at the outer left and bottom margin
 		mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
 		mgp = c(2, 1, 0),    # axis label at 2 rows distance, tick labels at 1 row
 		xpd = NA)
 plot(ChekPF$q01[-c(LAMA,ROSA)], ChekPF$m[-c(LAMA,ROSA)], pch=16, #cex=ChekPF$Nscale[-c(LAMA,ROSA)]*2, 
 		 xlim=c(0, .04), ylim=c(0, .04), col=alpha(cols[4], 0.2), xaxs="i",yaxs="i", 
-		 xlab='q(0) obs', ylab='Indirect estimate', xaxt="n", yaxt="n")
+		 xlab='q(0) estimación indirecta', ylab='m(0) observado', xaxt="n", yaxt="n")
 axis(1, at=seq(0, .04, by=.01), labels=seq(0, .04, by=.01), cex.axis=.8)
 axis(2, at=seq(0, .04, by=.01), labels=seq(0, .04, by=.01), cex.axis=.8)
 points(ChekPF$q01[c(LAMA,ROSA)], ChekPF$m[c(LAMA,ROSA)], pch=16, #cex=ChekPF$Nscale[c(LAMA,ROSA)]*2, 
 			 col=alpha(cols[2], 0.2))
 lines(c(0,.04), c(0,.04), col='grey', lty=2, xlim=c(0,.04), ylim=c(0,.04))
-text(.03, .01, 'Unweighted', col='grey')
+text(.03, .01, 'S/ ponderar', col='grey')
 plot(ChekPF$q01[-c(LAMA,ROSA)], ChekPF$m[-c(LAMA,ROSA)], pch=16, cex=ChekPF$Nscale[-c(LAMA,ROSA)]*2, 
 		 xlim=c(0, .04), ylim=c(0, .04),  col=alpha(cols[4], 0.2), 
 		 xaxs="i",yaxs="i", xlab='q(0) obs', ylab='', xaxt="n", yaxt="n")
 axis(1, at=seq(0, .04, by=.01), labels=seq(0, .04, by=.01), cex.axis=.8)
 points(ChekPF$q01[c(LAMA,ROSA)], ChekPF$m[c(LAMA,ROSA)], pch=16, cex=ChekPF$Nscale[c(LAMA,ROSA)]*2, col=alpha(cols[2], 0.2))
 lines(c(0,.04), c(0,.04), col='grey', lty=2, xlim=c(0,.04), ylim=c(0,.04))
-text(.03, .01, 'Weighted', col='grey')
+text(.03, .01, 'Ponderado', col='grey')
 text(.006, .012, 'Rosario \n La Matanza', col=alpha(cols[2], 0.5))
 dev.off()
