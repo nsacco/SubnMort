@@ -72,7 +72,7 @@ p = p[p$PROV != 0,]
 # get back names first
 pNames = merge(p, unique(db_pP[,c('PROV', 'DEPRE', 'NOM')]), by=c('PROV', 'DEPRE'), all.x = T)
 
-pdf('plots/AdjExp2.pdf')
+pdf('analysis/plots/AdjExp2.pdf')
 par(mfrow = c(1,2))
 for (i in 1:2) {
   #i=1
@@ -80,13 +80,13 @@ for (i in 1:2) {
   nomprov = provs_names_codes[provs_names_codes$provs_codes==prov, 2]
   dpto = sample(unique(pNames$DEPRE[pNames$PROV == prov]), 1)
   tmp = db_pP[db_pP$PROV == prov & db_pP$DEPRE == dpto,]
-  plot(tmp$EDAD, tmp$TOTAL*3, lwd = 2, xlab = "Age", ylab = "Exposures", t='p', pch=19, cex=.8)
+  plot(tmp$EDAD, tmp$TOTAL*3, lwd = 2, xlab = "Edad", ylab = "Población", t='p', pch=19, cex=.8)
   lines(0:99, pNames$N[pNames$PROV == prov & pNames$DEPRE == dpto], lwd = 3, col = 4)
   title(paste("Prov", nomprov, ". Dpto ", unique(tmp$NOM)), cex.main = .8)
   abline(v = seq(0,100,10), lty = 2, lwd=1, col='grey')
   NLocal=loess(TOTAL*3~EDAD,span=.1,data=tmp)
   lines(0:99, predict(NLocal, data.frame(EDAD=0:99)), col="red", lwd=2)
-  legend('topright', c('Observed', 'Survival method', 'LOESS'), col=c(1,4,2), 
+  legend('topright', c('Observado', 'Método Sobrev.', 'LOESS'), col=c(1,4,2), 
          lwd=c(NA,3,2), pch=c(1,NA,NA), bty = 'n', cex=.7)
 } 
 dev.off()
