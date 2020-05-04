@@ -16,5 +16,6 @@ save(def_tardias,
 		 provs_names,
 		 ineq_df,
 		 n_dptos,
-		 table_e0,
+		 table_e0_puntual,
+		 regionalizacion,
 		 file = "analysis/Rmarkdown_variables.RData")

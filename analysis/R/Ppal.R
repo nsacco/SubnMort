@@ -165,7 +165,11 @@ Dif_e0_INDEC = data.frame(Prov=c('Buenos Aires', 'Cordoba', 'Entre Rios', 'La Pa
 													e0Raw = e0_prov, e0_INDEC = INDEC0810,
 													DifRel = round((e0_prov-INDEC0810)/INDEC0810*100,2)) #ok!
 #diferencias por: 2010 vs 2009, INDEC redistribuyo quizas de otra manera y hay ajustes por cobert
+  
+# regionalizacion
 
+regionalizacion = dbt %>% select(Prov_Nombre, Dpto_Nombre, K) %>% 
+                  distinct() %>% arrange(K)
 
 ######################################## Aplico Metodos
 
@@ -296,7 +300,7 @@ legend("topleft", c("EB", "EI", "TP"), lty=1, col=c(4,8,2), cex=.8, bty="n")
 #order dbtQ
 dbtQ=dbtQ[order(dbtQ$PROVRE,dbtQ$DEPRE,dbtQ$EDAD_q),]
 
-pdf("plots/Ajuste.pdf")
+pdf("analysis/plots/Ajuste2.pdf")
 par(mfrow=c(2,2))
 for (i in sample(unique(dbtQ$link),4)){
   
@@ -322,19 +326,18 @@ for (i in sample(unique(dbtQ$link),4)){
   lines(ages,ET_AM_i$muaTop,cex=0.8, col=alpha(colsGraph[3], .5), lwd=2, type="s")
       
   # text(x=15,y=-2, paste0("evBE=",round(evEBm,1)),cex = .7)
-  legend(x=60, y=-7, c("Dpto Obs", "Bayes Emp.", "Indirect Est.", "TOPALS regr."),
+  legend(x=60, y=-7, c("Dpto Obs", "Bayes Emp.", "Indirect Est.", "TOPALS"),
              col = c(1, alpha(colsGraph, .5)), box.lwd=0,
-             lty = c(NA, 1, 1, 1), pch = c(1, NA, NA, NA),
+             lty = c(NA, 1, 1, 1), pch = c(19, NA, NA, NA),
              cex=0.6, box.lty=0, lwd=c(NA,3,3,3))
-  text(x=20, y=-1, paste0("Population: ", round(sum(EI_AM_i$N),0),
-                          "\nShare of Province: ", round(sum(EI_AM_i$N)/N_prov*100,1), "%"),cex=.7)
-  if(length(ET_AM_i$EDAD_q[ET_AM_i$d==0]>0)) {mtext("Zero deaths",col="grey",cex=.5,at = c(10),side=1)}
+  text(x=20, y=-1, paste0("Población: ", round(sum(EI_AM_i$N),0),
+                          "\n% Provincia: ", round(sum(EI_AM_i$N)/N_prov*100,1), "%"),cex=.7)
+  if(length(ET_AM_i$EDAD_q[ET_AM_i$d==0]>0)) {mtext("Cero muertes",col="grey",cex=.5,at = c(10),side=1)}
   mtext(paste0("Dpto. ", NombreDPTO,", ",NombrePROV), side=3, cex=.9)
   print(i)
 }
 dev.off()
 par(mfrow=c(1,1))
-
 
 
 ##### Esp de vida y funciones de tabla
@@ -398,15 +401,16 @@ Compar_ex0$`EI-TOP` = Compar_ex0$e0EI-Compar_ex0$e0ET# scatter graph
 Compar_ex0 = Compar_ex0[order(Compar_ex0$`EB-TOP`),]
 Compar_ex0$id = 1:nrow(Compar_ex0) 
 Rango = range(Compar_ex0$e0BE, Compar_ex0$e0ET, Compar_ex0$e0EI)
-pdf("plots/CompMethods.pdf")
-plot(Compar_ex0$e0BE, xlab='', ylab='e0', xaxt='n', pch=15, cex=.9, ylim=Rango, col = alpha(colsGraph[1], .2))
+pdf("analysis/plots/CompMethods.pdf")
+plot(Compar_ex0$e0BE, ylab='e(0)', xlab = "Departamento",xaxt='n', pch=15, cex=.9, 
+     ylim=Rango, col = alpha(colsGraph[1], .2))
 points(Compar_ex0$e0EI, pch=15, cex=.9, col = alpha(colsGraph[2], .2))
 points(Compar_ex0$e0ET, pch=15, cex=.9, col = alpha(colsGraph[3], .2))
 lines(predict(loess(e0BE~id, Compar_ex0), 1:nrow(Compar_ex0)), lty=2, lwd = 2, col = colsGraph[1])
 lines(predict(loess(e0EI~id, Compar_ex0), 1:nrow(Compar_ex0)), lty=2, col = colsGraph[2])
 lines(predict(loess(e0ET~id, Compar_ex0), 1:nrow(Compar_ex0)), lty=2, col = colsGraph[3])
 legend('topright', bty = 'n', cex=.9,
-			 c('Bayes Emp', 'TOPALS', 'Indirect'), pch=19, col=colsGraph)
+			 c('Bayes Emp', 'Indirecto', 'TOPALS'), pch=19, col=colsGraph)
 dev.off()
 
 ##### Consistencia con AM
@@ -428,14 +432,18 @@ prom <- cbind(round(diferencias %>% summarise(dif_EI = mean(dif_EI, na.rm = T)),
 						 	round(diferencias %>% summarise(dif_EB = mean(dif_EB, na.rm = T)),1),
 						 	round(diferencias %>% summarise(dif_ET = mean(dif_ET, na.rm = T)),1))
 
-pdf("plots/ConsistAM.pdf")
+pdf("analysis/plots/ConsistAM.pdf")
 print(
-	ggplot(diferencias %>% select(-d,-4,-5,-6) %>% gather(Met, Value, -c(1:2)),
+	ggplot(diferencias %>% select(-d,-4,-5,-6) %>% 
+	         rename(Indirecta=3, "Bayes Emp."=4, "TOPALS"=5) %>% 
+	         gather(Met, Value, -c(1:2)),
 			 aes(EDAD_q, Value, col = Met)) + geom_line() + 
 			 theme_bw() + facet_grid(~K) +
-			 ggtitle("Defunciones esperadas respecto a registradas en áreas mayores definidas",
-			 				subtitle = "Diferencias realtivas en porcentaje") +
-			 scale_y_continuous(name = "%") + scale_x_continuous(name = "Edad"))
+	     theme(strip.background = element_rect(fill="#FFFFFF"),
+	           legend.title = element_blank()) +
+			 scale_y_continuous(name = "%") + 
+	     scale_x_continuous(name = "Edad")
+	)
 dev.off()
 
 # graf w problems
@@ -444,7 +452,7 @@ nombre_problems = unique(dbt$Dpto_Nombre[dbt$link %in% problems])
 ages_mp = c(.5,2,rep(2.5,length(ages)-3),0)
 ages_mp = ages+ages_mp
 
-pdf("plots/AjusteFeos.pdf")
+pdf("analysis/plots/AjusteFeos2.pdf")
 par(mfrow=c(2,2))
 for (i in problems[1:4]){
   NombrePROV=unique(dbt$Prov_Nombre[dbt$link==i])
@@ -464,13 +472,13 @@ for (i in problems[1:4]){
   lines(ages,ET_AM_i$muaTop,cex=0.8, col=alpha(colsGraph[3], .5), lwd=2, type="s")
   
   # text(x=15,y=-2, paste0("evBE=",round(evEBm,1)),cex = .7)
-  legend(x=60, y=-7, c("Dpto Obs", "Bayes Emp.", "Indirect Est.", "TOPALS regr."),
+  legend(x=60, y=-7, c("Observado", "Bayes Emp.", "Indirecta", "TOPALS regr."),
   			 col = c(1, alpha(colsGraph, .5)), box.lwd=0,
   			 lty = c(NA, 1, 1, 1), pch = c(1, NA, NA, NA),
   			 cex=0.6, box.lty=0, lwd=c(NA,3,3,3))
-  text(x=20, y=-1, paste0("Population: ", round(sum(EI_AM_i$N),0),
-  												"\nShare of Province: ", round(sum(EI_AM_i$N)/N_prov*100,1), "%"),cex=.7)
-  if(length(ET_AM_i$EDAD_q[ET_AM_i$d==0]>0)) {mtext("Zero deaths",col="grey",cex=.5,at = c(10),side=1)}
+  text(x=20, y=-1, paste0("Población: ", round(sum(EI_AM_i$N),0),
+  												"\n% Provincia: ", round(sum(EI_AM_i$N)/N_prov*100,1), "%"),cex=.7)
+  if(length(ET_AM_i$EDAD_q[ET_AM_i$d==0]>0)) {mtext("Cero deaths",col="grey",cex=.5,at = c(10),side=1)}
   mtext(paste0("Dpto. ", NombreDPTO,", ",NombrePROV), side=3, cex=.9)}
 dev.off()
 
@@ -553,28 +561,22 @@ for (i in 1:4){
 ineq_df <- EB_AM_exIC %>% filter(EDAD_q==0) %>% 
 														group_by(PROVRE) %>% 
 														dplyr::summarise(mean = mean(ex.mean),
-																						 	n_dptos = n(), 
+																						 	n_dptos = n() + 1, # no sé donde perdí uno 
 																							variance = var(ex.mean),
-																							cv = round(variance^.5/mean,2),
+																							cv = round(variance^.5/mean*100,1),
 																							rango = diff(range(ex.mean)))
 
 
 
+######### table final
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+table_e0_puntual <- Compar_ex0 %>% 
+                    mutate(e0BE=round(e0BE,1), e0EI=round(e0EI,1), e0ET=round(e0ET,1)) %>% 
+                    left_join(nombres %>% 
+                                select(Prov_Nombre, link, Dpto_Nombre)) %>% 
+                    select(Prov_Nombre, Dpto_Nombre, e0BE, e0EI, e0ET) %>% 
+                    arrange(Prov_Nombre, Dpto_Nombre)
+                    
 
 ###############mapa
 # item=2
